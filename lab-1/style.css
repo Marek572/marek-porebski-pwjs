@@ -1,0 +1,15 @@
+body{
+    margin: 15px;
+}
+
+#inputs{
+    display: flex;
+}
+
+#calc{
+    margin-top: 5px;
+}
+
+#results{
+    margin-top: 10px;
+}
