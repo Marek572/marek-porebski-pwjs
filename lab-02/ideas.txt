@@ -1,0 +1,4 @@
+slider arrows
+progress bar on top
+dots with specific img bottom
+on hover stop progress bar and slider
