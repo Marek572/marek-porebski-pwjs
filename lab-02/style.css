@@ -1,5 +1,9 @@
 :root{
-    --color-red: red;
+    --color1: #DFDDCE;
+    --color2: #b6be9c;
+    --color3: #7b9e87;
+    --color4: #517062;
+    --color5: #26413C;
 }
 
 body{
@@ -9,13 +13,9 @@ body{
 	justify-content: center;
 	align-items: center;
     height: 100vh;
-    background-color: #797596;
+    background-color: var(--color4);
 }
 
-#progressbar{
-    background-color: var(--color-red);
-    height: 0.3vh;
-}
 
 .btn{
     border: 0;
@@ -25,23 +25,25 @@ body{
     cursor: pointer;
     position: absolute;
     z-index: 100;
-    color: blue;
+    color: var(--color1);
 }
 
 .btn:hover{
-    color: red;
+    transition: 0.25s;
+    color: var(--color2);
+    opacity: 75%;
 }
 
 .btn:active{
-    color: gray;
+    color: var(--color3);
 }
 
 #arrow-r{
-    transform: translateX(3120%) translateY(725%);
+    transform: translateX(3400%) translateY(725%);
 }
 
 #arrow-l{
-    transform: translateX(100%) translateY(725%);
+    transform: translateX(-200%) translateY(725%);
 }
 
 #slider {
@@ -50,15 +52,18 @@ body{
     overflow: hidden;
 }
 #slider .slides {
+
     display: flex;
     position: relative;
-    /* animation-name: pociag-w-lewo;
-    animation-duration: 4s;
-    animation-delay: 1s;
-    animation-timing-function: ease-in-out; */
+    transition: 1s;
+    animation-timing-function: ease-in-out;
 }
 
-#slides-dots{
+img{
+    border-radius: 20px;
+}
+
+#slides-radio{
     width: 600px;
     margin-top: 8px;
     justify-content: center;
@@ -66,38 +71,25 @@ body{
     flex-wrap: wrap;
 }
 
-#slides-dots .dot{
-    margin: 0 3px 0 0;
-    color: #a29c9b;
+input[type="radio"]{
+    appearance: none;
+    margin: 0 8px 0 0;
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+    border: 0.15em solid var(--color2);
+    border-radius: 50%;
+    opacity: 75%;
 }
 
-#slides-dots .dot #img-dot1{
-    color: black;
+input[type="radio"]:hover{
+    background: var(--color2);
+    transition: 0.3s;
 }
 
-#slide-r{
-    animation: slide-r 1s forwards;
-}
-
-#slide-l{
-    animation: slide-l 1s forwards;
-}
-
-@keyframes slide-r {
-    0% { transform: translateX(0)}
-    100% { transform: translateX(-600px)}
-}
-
-@keyframes slide-l {
-    0% { transform: translateX(600px)}
-    100% { transform: translateX(0)}
-}
-
-@keyframes pociag-w-lewo {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-400%);
-    }
+#slides-radio .currentDot{
+    background: var(--color1);
+    border: var(--color1);
+    opacity: 1;
+    transition: 1s;
 }
