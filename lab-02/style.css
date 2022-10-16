@@ -1,3 +1,7 @@
+:root{
+    --color-red: red;
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -9,7 +13,7 @@ body{
 }
 
 #progressbar{
-    background-color: red;
+    background-color: var(--color-red);
     height: 0.3vh;
 }
 
@@ -20,23 +24,23 @@ body{
     background-color: transparent;
     cursor: pointer;
     position: absolute;
+    z-index: 100;
+    color: blue;
 }
 
 .btn:hover{
-    color: #fff;
+    color: red;
 }
 
 .btn:active{
     color: gray;
 }
 
-.btn #arrow-r{
-    z-index: 100;
+#arrow-r{
     transform: translateX(3120%) translateY(725%);
 }
 
-.btn #arrow-l{
-    z-index: 100;
+#arrow-l{
     transform: translateX(100%) translateY(725%);
 }
 
@@ -44,14 +48,14 @@ body{
     width: 600px;
     margin: 0 auto 0 auto;
     overflow: hidden;
-    position: relative;
 }
 #slider .slides {
     display: flex;
-    animation-name: pociag-w-lewo;
+    position: relative;
+    /* animation-name: pociag-w-lewo;
     animation-duration: 4s;
     animation-delay: 1s;
-    animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out; */
 }
 
 #slides-dots{
@@ -64,18 +68,36 @@ body{
 
 #slides-dots .dot{
     margin: 0 3px 0 0;
+    color: #a29c9b;
 }
 
-#slides-dots .dot:hover{
-    color: #fff;
+#slides-dots .dot #img-dot1{
+    color: black;
 }
 
+#slide-r{
+    animation: slide-r 1s forwards;
+}
 
-/* @keyframes pociag-w-lewo {
+#slide-l{
+    animation: slide-l 1s forwards;
+}
+
+@keyframes slide-r {
+    0% { transform: translateX(0)}
+    100% { transform: translateX(-600px)}
+}
+
+@keyframes slide-l {
+    0% { transform: translateX(600px)}
+    100% { transform: translateX(0)}
+}
+
+@keyframes pociag-w-lewo {
     0% {
         transform: translateX(0);
     }
     100% {
         transform: translateX(-400%);
     }
-} */
+}
