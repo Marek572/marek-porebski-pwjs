@@ -87,6 +87,11 @@ input[type="radio"]:hover{
     transition: 0.3s;
 }
 
+input[type="radio"]:active{
+    border: var(--color3);
+    background: var(--color3);
+}
+
 #slides-radio .currentDot{
     background: var(--color1);
     border: var(--color1);

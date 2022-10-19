@@ -1,5 +1,5 @@
 const slides = document.querySelector('.slides')
-const allImgNum = document.querySelectorAll('.img').length
+const allImgNum = document.querySelectorAll('.img').length-1
 const btnR = document.querySelector('#arrow-r')
 const btnL = document.querySelector('#arrow-l')
 
@@ -29,7 +29,7 @@ btnR.addEventListener('click', () => {
 
 let autoSlide = setInterval( () => {
     btnR.click()
-}, 2500)
+}, 3000)
 
 slides.addEventListener('mouseover', () => {
     clearInterval(autoSlide)
@@ -38,7 +38,7 @@ slides.addEventListener('mouseover', () => {
 slides.addEventListener('mouseout', () => {
     autoSlide = setInterval( () => {
         btnR.click()
-    }, 2500)
+    }, 3000)
 })
 
 btnL.addEventListener('click', () => {
@@ -58,35 +58,38 @@ btnL.addEventListener('click', () => {
 dot1.addEventListener('click', () => {
     imgIndex = 0
     translateX = 0
-    slides.style.transform = `translateX(${translateX}px)`
-    dots.forEach(e=>e.removeAttribute('class','currentDot'))
-    dot1.setAttribute('class', 'currentDot')
 })
 dot2.addEventListener('click', () => {
     imgIndex = 1
     translateX = -600
-    slides.style.transform = `translateX(${translateX}px)`
-    dots.forEach(e=>e.removeAttribute('class','currentDot'))
-    dot2.setAttribute('class', 'currentDot')
 })
 dot3.addEventListener('click', () => {
     imgIndex = 2
     translateX = -1200
-    slides.style.transform = `translateX(${translateX}px)`
-    dots.forEach(e=>e.removeAttribute('class','currentDot'))
-    dot3.setAttribute('class', 'currentDot')
 })
 dot4.addEventListener('click', () => {
     imgIndex = 3
     translateX = -1800
-    slides.style.transform = `translateX(${translateX}px)`
-    dots.forEach(e=>e.removeAttribute('class','currentDot'))
-    dot4.setAttribute('class', 'currentDot')
 })
 dot5.addEventListener('click', () => {
     imgIndex = 4
     translateX = -2400
-    slides.style.transform = `translateX(${translateX}px)`
-    dots.forEach(e=>e.removeAttribute('class','currentDot'))
-    dot5.setAttribute('class', 'currentDot')
+})
+
+dots.forEach((dot)=>{
+    dot.addEventListener('click', () => {
+        slides.style.transform = `translateX(${translateX}px)`
+        dots.forEach(e=>e.removeAttribute('class','currentDot'))
+        dot.setAttribute('class', 'currentDot')
+    })
+
+    dot.addEventListener('mouseover', () => {
+        clearInterval(autoSlide)
+    })
+
+    dot.addEventListener('mouseout', () => {
+        autoSlide = setInterval( () => {
+            btnR.click()
+        }, 3000)
+    })
 })
