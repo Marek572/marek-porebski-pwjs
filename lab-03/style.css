@@ -1,0 +1,150 @@
+:root{
+    --black: #02111b;
+    --brown: #30292f;
+    --gray: #3f4045;
+    --gray2: #576066;
+    --white: #fcfcfc;
+    --blue: #35a7ff;
+    --green: #04a777;
+    --lightgreen: #b9e28c;
+    --red: #DF2935;
+    --lightred: #F87060;
+}
+
+body{
+    background: var(--gray);
+    color: var(--white);
+    overflow: hidden;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 25px;
+}
+
+#metronome{
+    width: 1024px;
+    margin: 0 auto 20px auto;
+    display: flex;
+    justify-content: center;
+}
+
+#metronomeOn{
+    background: var(--green);
+}
+
+.metronome{
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+    background: var(--gray);
+    border-radius: 20px;
+}
+
+.metronomeActive{
+    background: var(--white);
+}
+
+#metronomeOff{
+    background: var(--red);
+}
+
+#wrapper{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+main{
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.tile{
+    width: 120px;
+    height: 120px;
+    background: var(--black);
+    margin: 0 8px 0 0;
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#tomTile{
+    margin: 0;
+}
+
+#paths{
+    width: 1024px;
+    margin: 20px auto 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.path{
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.btn{
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    appearance: none;
+    background: var(--white);
+    border: 0;
+    border-radius: 20px;
+}
+
+input[type="checkbox"]{
+    width: 30px;
+    height: 30px;
+    margin: 0 5px 0 0;
+    appearance: none;
+    background: var(--white);
+    border-radius: 100%;
+    transition: .4s;
+}
+
+input[type="checkbox"]:checked{
+    box-shadow: inset 0 0 0 30px var(--blue);
+}
+
+.playSoundBtn{
+    background: var(--green);
+    margin: 0 5px 0 0;
+}
+
+.recordSoundBtn{
+    background: var(--red);
+}
+
+#addPath{
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    font-size: 25px;
+    border: 0;
+    border-radius: 20px;
+}
+
+#playAllBtn{
+    width: 100px;
+    height: 30px;
+    margin: 10px auto 0 auto;
+    border: 0;
+    border-radius: 20px;
+}
+
+#playSelectedBtn{
+    width: 100px;
+    height: 30px;
+    margin: 10px auto 0 auto;
+    border: 0;
+    border-radius: 20px;
+}
