@@ -5,7 +5,7 @@ const metronome2 = document.querySelector('#metronome2')
 
 const tiles = document.querySelectorAll('.tile')
 
-const timeOut = 3000
+const timeOut = 1000
 let checkboxes = Array.from(document.querySelectorAll('input[type=checkbox]'))
 let playBtns = Array.from(document.querySelectorAll('.playSoundBtn'))
 let recordBtns = Array.from(document.querySelectorAll('.recordSoundBtn'))
@@ -82,6 +82,29 @@ function playAllRecordings() {
     })
 }
 
+const playSelected = () => {
+
+    const tmp = []
+
+    checkboxesChecked.forEach((index) => {
+        allRecords.forEach((record) => {
+            if (record[0] === index) {
+                tmp.push(record)
+            }
+        })
+    })
+
+    tmp.forEach((record) => {
+        const startTimer = record[1][0]
+        let time = 0
+        for (i = 1; i < record.length; i++) {
+            time = record[i][0] - startTimer
+            let sound = record[i][1]
+            setTimeout(() => playSound(sound), time)
+        }
+    })
+}
+
 metronomeOn.addEventListener('click', () => {
     metronomeInverval = setInterval(() => {
 
@@ -134,19 +157,16 @@ const recordSound = () => {
 
 const checkboxClick = (checkbox) => {
 
-    const index = parseInt(checkbox.id.slice(5))
-
     checkbox.addEventListener('click', () => {
 
-        console.log(index)
+        checkboxesChecked = []
 
-        if(checkbox.checked === true){
-            checkboxesChecked.push(index)
-            checkboxesChecked.sort()
-        }
-        else{
-            checkboxesChecked.splice(index-1,1) //TODO: find element index and splice it
-        }
+        checkboxes.forEach((checkbox) => {
+            if(checkbox.checked === true){
+                const index = parseInt(checkbox.id.slice(5))-1
+                checkboxesChecked.push(index)
+            }
+        })
 
     })
 }
@@ -184,19 +204,25 @@ const recordBtnClick = (recBtn) => {
             playBtn.style.pointerEvents = 'none'
         })
 
+        recordBtns.forEach((recordBtn) => {
+            recordBtn.style.pointerEvents = 'none'
+        })
+
         recBtn.style.background = '#F87060'
-        recBtn.style.pointerEvents = 'none'
 
         setTimeout(() => {
 
             recBtn.style.background = '#DF2935'
-            recBtn.style.pointerEvents = 'auto'
 
             allRecords.splice(index, 1, recordingTemp)
             allRecords[index].splice(0, 0, index)
 
             playBtns.forEach((playBtn) => {
                 playBtn.style.pointerEvents = 'auto'
+            })
+
+            recordBtns.forEach((recordBtn) => {
+                recordBtn.style.pointerEvents = 'auto'
             })
         }, timeOut)
     })
@@ -238,3 +264,4 @@ addPath.addEventListener('click', () => {
 })
 
 playAllBtn.addEventListener('click', playAllRecordings)
+playSelectedBtn.addEventListener('click', playSelected)
