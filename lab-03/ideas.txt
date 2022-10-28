@@ -1,1 +1,5 @@
-while loop == true -> playRecording
+while loop == true -> playRecording?
+
+czy trzymanie usunietych tablic w allrecords dobry pomysl?
+
+jeszcze raz klikniety button stopuje puszczana muze/nagrywanie

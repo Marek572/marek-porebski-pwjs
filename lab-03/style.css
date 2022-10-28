@@ -2,7 +2,7 @@
     --black: #02111b;
     --brown: #30292f;
     --gray: #3f4045;
-    --gray2: #576066;
+    --lightgray: #C6C6C6;
     --white: #fcfcfc;
     --blue: #35a7ff;
     --green: #04a777;
@@ -26,13 +26,14 @@ body{
     margin: 0 auto 20px auto;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 #metronomeOn{
     background: var(--green);
 }
 
-.metronome{
+.metronomeDot{
     width: 30px;
     height: 30px;
     margin: 0 5px;
@@ -135,10 +136,18 @@ input[type="checkbox"]:checked{
     border-radius: 20px;
 }
 
-#playAllBtn, #playSelectedBtn, #loopBtn, #deleteSelectedBtn{
+#playAllBtn, #playSelectedBtn, /*#loopBtn,*/ #deleteSelectedBtn{
     width: 111px;
     height: 30px;
     margin: 10px auto 0 auto;
     border: 0;
     border-radius: 20px;
+}
+
+#addPath:hover,#playAllBtn:hover,#playSelectedBtn:hover,#deleteSelectedBtn:hover{
+    background: var(--lightgray);
+}
+
+#deleteSelectedBtn:active{
+    background: var(--blue);
 }

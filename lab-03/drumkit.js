@@ -5,7 +5,7 @@ const metronome2 = document.querySelector('#metronome2')
 
 const tiles = document.querySelectorAll('.tile')
 
-const timeOut = 1000
+const timeOut = 3000
 let checkboxes = Array.from(document.querySelectorAll('input[type=checkbox]'))
 let playBtns = Array.from(document.querySelectorAll('.playSoundBtn'))
 let recordBtns = Array.from(document.querySelectorAll('.recordSoundBtn'))
@@ -23,7 +23,7 @@ const playAllBtn = document.querySelector('#playAllBtn')
 let checkboxesChecked = []
 const playSelectedBtn = document.querySelector('#playSelectedBtn')
 
-const loopBtn = document.querySelector('#loopBtn')
+// const loopBtn = document.querySelector('#loopBtn')
 const deleteSelectedBtn = document.querySelector('#deleteSelectedBtn')
 
 let recordingTemp = []
@@ -44,7 +44,6 @@ function onKeyPress(event) {
         case 'y': sound = 'ride'; break;
         case 'u': sound = 'snare'; break;
         case 'i': sound = 'tom'; break;
-        // case 'o': sound = 'tink'; break; //metronom
         default: sound = 'none'; break;
     }
     playSound(sound)
@@ -79,17 +78,33 @@ function playRecording(recording) {
 function playAllRecordings() {
 
     allRecords.forEach((record) => {
-        const startTimer = record[1][0]
-        let time = 0
-        for (i = 1; i < record.length; i++) {
-            time = record[i][0] - startTimer
-            let sound = record[i][1]
-            setTimeout(() => playSound(sound), time)
+        if (record.length > 1) {
+
+            playAllBtn.style.pointerEvents = 'none'
+            playAllBtn.style.background = '#35a7ff'
+            setTimeout(() => {
+                playAllBtn.addEventListener('mouseover', () => {
+                    playSelectedBtn.style.background = '#C6C6C6'
+                })
+                playAllBtn.addEventListener('mouseout', () => {
+                    playSelectedBtn.style.background = '#fcfcfc'
+                })
+                playAllBtn.style.pointerEvents = 'auto'
+                playAllBtn.style.background = '#fcfcfc'
+            }, timeOut)
+
+            const startTimer = record[1][0]
+            let time = 0
+            for (i = 1; i < record.length; i++) {
+                time = record[i][0] - startTimer
+                let sound = record[i][1]
+                setTimeout(() => playSound(sound), time)
+            }
         }
     })
 }
 
-const playSelected = () => { //error
+const playSelected = () => {
 
     const tmp = []
 
@@ -102,34 +117,53 @@ const playSelected = () => { //error
     })
 
     tmp.forEach((record) => {
-        const startTimer = record[1][0]
-        let time = 0
 
-        for (i = 1; i < record.length; i++) {
-            time = record[i][0] - startTimer
-            let sound = record[i][1]
-            setTimeout(() => playSound(sound), time)
+        if (record.length > 1) {
+
+            playSelectedBtn.style.pointerEvents = 'none'
+            playSelectedBtn.style.background = '#35a7ff'
+            setTimeout(() => {
+                playSelectedBtn.addEventListener('mouseover', () => {
+                    playSelectedBtn.style.background = '#C6C6C6'
+                })
+                playSelectedBtn.addEventListener('mouseout', () => {
+                    playSelectedBtn.style.background = '#fcfcfc'
+                })
+                playSelectedBtn.style.pointerEvents = 'auto'
+                playSelectedBtn.style.background = '#fcfcfc'
+            }, timeOut)
+
+            const startTimer = record[1][0]
+            let time = 0
+
+            for (i = 1; i < record.length; i++) {
+                time = record[i][0] - startTimer
+                let sound = record[i][1]
+                setTimeout(() => playSound(sound), time)
+            }
         }
     })
 }
 
-let switchLoop = false
-loopBtn.addEventListener('click', () => {
-    if (switchLoop === false) {
-        switchLoop = true
-        loopBtn.style.background = '#f9c846'
-    } else {
-        switchLoop = false
-        loopBtn.style.background = '#fcfcfc'
-    }
-})
+// let switchLoop = false
+// loopBtn.addEventListener('click', () => {
+//     if (switchLoop === false) {
+//         switchLoop = true
+//         loopBtn.style.background = '#f9c846'
+//     } else {
+//         switchLoop = false
+//         loopBtn.style.background = '#fcfcfc'
+//     }
+// })
 
 deleteSelectedBtn.addEventListener('click', () => {
     checkboxesChecked.forEach((index) => {
         allRecords.forEach((record) => {
             if (record[0] === index) {
-                allRecords.splice(allRecords.indexOf(record), 1)
+                allRecords.splice(allRecords.indexOf(record), 1, [index])
                 let path = document.querySelector(`#path${index + 1}`)
+                if (path === null)
+                    return
                 path.remove()
             }
         })
@@ -137,26 +171,45 @@ deleteSelectedBtn.addEventListener('click', () => {
 })
 
 let metronomeInverval
+let metronomeClickCount = 0
+let metronomeIntervalTimeOut
 metronomeOn.addEventListener('click', () => {
+
+    clearInterval(metronomeInverval)
+    metronomeOn.style.background = '#b9e28c'
+
+    switch (metronomeClickCount) {
+        case 0: metronomeIntervalTimeOut = 1500; break;
+        case 1: metronomeIntervalTimeOut = 600; break;
+        case 2: metronomeIntervalTimeOut = 300; break;
+    }
+
     metronomeInverval = setInterval(() => {
 
         if (metronome1.classList.contains('metronomeActive')) {
-            metronome1.setAttribute('class', 'metronome')
-            metronome2.setAttribute('class', 'metronome metronomeActive')
+            metronome1.setAttribute('class', 'metronomeDot')
+            metronome2.setAttribute('class', 'metronomeDot metronomeActive')
             playSound('tink')
         } else {
-            metronome2.setAttribute('class', 'metronome')
-            metronome1.setAttribute('class', 'metronome metronomeActive')
+            metronome2.setAttribute('class', 'metronomeDot')
+            metronome1.setAttribute('class', 'metronomeDot metronomeActive')
             playSound('tink')
         }
-    }, 600)
+    }, metronomeIntervalTimeOut)
+
+    metronomeClickCount++
+    if (metronomeClickCount > 2) {
+        metronomeClickCount = 0
+    }
 })
 
 metronomeOff.addEventListener('click', () => {
     if (!metronomeInverval)
         return
-    else
+    else {
         clearInterval(metronomeInverval)
+        metronomeOn.style.background = '#04a777'
+    }
 })
 
 
