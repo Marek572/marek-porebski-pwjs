@@ -1,2 +1,1 @@
-sciezka sztywna dlugosc (najlepiej pole tekstowe user wybiera)
-klawisze na ekranie, onclick kolor klawisza sie zmienia
+while loop == true -> playRecording

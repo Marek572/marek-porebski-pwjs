@@ -9,6 +9,8 @@
     --lightgreen: #b9e28c;
     --red: #DF2935;
     --lightred: #F87060;
+    --orange: #e28413;
+    --lightorange: #f9c846;
 }
 
 body{
@@ -127,22 +129,14 @@ input[type="checkbox"]:checked{
 #addPath{
     width: 30px;
     height: 30px;
-    margin: 0 auto;
+    margin: 5px auto 0 auto;
     font-size: 25px;
     border: 0;
     border-radius: 20px;
 }
 
-#playAllBtn{
-    width: 100px;
-    height: 30px;
-    margin: 10px auto 0 auto;
-    border: 0;
-    border-radius: 20px;
-}
-
-#playSelectedBtn{
-    width: 100px;
+#playAllBtn, #playSelectedBtn, #loopBtn, #deleteSelectedBtn{
+    width: 111px;
     height: 30px;
     margin: 10px auto 0 auto;
     border: 0;
