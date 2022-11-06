@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="noteForm">
+      <!-- <form> -->
+        <div id="newNoteTitle">
+          <label>Title</label>
+          <input
+            type="text"
+            id="inputTitle"
+            placeholder="Input title here..."
+            required
+          />
+        </div>
+        <div id="newNoteContent">
+          <label>Content</label>
+          <textarea
+            type="text"
+            id="inputContent"
+            placeholder="Input content here..."
+            required
+          ></textarea>
+        </div>
+        <div id="newNoteColor">
+          <label>Color</label>
+          <select id="selectColor">
+            <option id="newNoteOptionMagenta" value="Magenta">Magenta</option>
+            <option id="newNoteOptionCyan" value="Cyan">Cyan</option>
+            <option id="newNoteOptionYellow" value="Yellow">Yellow</option>
+          </select>
+        </div>
+        <div id="newNotePinAndSubmit">
+          <div id="newNotePin">
+            <label>Pin note?</label>
+            <input type="radio" name="pin" id="radioPinNoteYes" value="true" />Yes
+            <input type="radio" name="pin" id="radioPinNoteNo" value="false" checked />No
+          </div>
+          <div id="newNoteSubmit">
+            <!-- <input type="submit" id="submitBtn" value="Add note" /> -->
+            <button id="submitBtn">Add note</button>
+          </div>
+        </div>
+      <!-- </form> -->
+    </div>
+    <div id="noteLightbox">
+      <div id="noteEdit">
+        <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
+        <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
+        <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
+      </div>
+      <i id="noteIconClose" class="fa-regular fa-x"></i>
+    </div>
+    <main id="notes">
+      <div id="newNoteBtn" class="note"><i class="fa-solid fa-plus"></i></div>
+      <div class="note">
+        <div id="noteEdit">
+          <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
+          <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
+          <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
+        </div>
+        <p id="noteTitle">Important note</p>
+        <p id="noteDate">04/11/2022</p>
+      </div>
+      <div class="note noteColorCyan">
+        <div id="noteEdit">
+          <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
+          <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
+          <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
+        </div>
+        <p id="noteTitle">Less important note</p>
+        <p id="noteDate">05/11/2022</p>
+      </div>
+      <div class="note noteColorYellow">
+        <div id="noteEdit">
+          <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
+          <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
+          <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
+        </div>
+        <p id="noteTitle">Random note with long title</p>
+        <p id="noteDate">06/11/2022</p>
+      </div>
+    </main>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

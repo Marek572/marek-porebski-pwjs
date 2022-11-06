@@ -1,0 +1,239 @@
+:root{
+    --black: #020F16;
+    --white: #F7F9F9;
+    --cyan: #56FCFC;
+    --magenta: #CE44FF;
+    --yellow: #f2f103;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-size: 18px;
+    font-family: 'Orbitron', sans-serif;
+    background:var(--black);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#notes{
+    width: 1080px;
+    margin: 0 auto;
+    background: transparent;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#newNoteBtn{
+    color: var(--white);
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--white);
+    box-shadow: 0 0 7px var(--white),
+                0 0 10px var(--white),
+                0 0 25px var(--white);
+}
+
+.note{
+    width: 246px;
+    height: 246px;
+    margin: 55px;
+    color: var(--magenta);
+    text-align: center;
+    border: 2px solid var(--magenta);
+    border-radius: 5px;
+    box-shadow: 0 0 7px var(--magenta),
+                0 0 10px var(--magenta),
+                0 0 25px var(--magenta);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.note:active{
+    transform: scale(0.95);
+}
+
+.noteColorCyan{
+    color: var(--cyan);
+    border: 2px solid var(--cyan);
+    box-shadow: 0 0 7px var(--cyan),
+                0 0 10px var(--cyan),
+                0 0 25px var(--cyan);
+}
+
+.noteColorYellow{
+    color: var(--yellow);
+    border: 2px solid var(--yellow);
+    box-shadow: 0 0 7px var(--yellow),
+                0 0 10px var(--yellow),
+                0 0 25px var(--yellow);
+}
+
+.noteIcon{
+    font-size: 1.2em;
+}
+
+#noteEdit{
+    position: absolute;
+    top: 0.7em;
+    left: 0.7em;
+}
+
+p{
+    margin: 0;
+    padding: 0 0.7em;
+}
+
+#noteTitle{
+    color: var(--white);
+    overflow-wrap: break-word;
+}
+
+#noteDate{
+    padding: 0;
+    position: absolute;
+    bottom: 0;
+    right: 0.7em;
+    bottom: 0.7em;
+}
+
+#noteForm{
+    position: fixed;
+    z-index: 100;
+    width: 60%;
+    height: 60%;
+    color: var(--white);
+    background: var(--black);
+    border: 2px solid var(--white);
+    border-radius: 5px;
+    box-shadow: 0 0 7px var(--white),
+                0 0 10px var(--white),
+                0 0 25px var(--white);
+    display: none;
+}
+
+#noteForm.active{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#noteForm input[type="text"], textarea, select{
+    color: var(--white);
+    margin: 5px 0 0 0;
+    padding: 5px 0 5px 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1em;
+    background: transparent;
+    border: 2px solid var(--white);
+    border-radius: 5px;
+    resize: none;
+}
+
+textarea{
+    padding: 10px;
+}
+
+#newNoteTitle,#newNoteContent,#newNoteColor,#newNotePin{
+    display: flex;
+    flex-direction: column;
+    margin: 0 50px 10px 50px;
+}
+
+#inputContent{
+    height: 500px;
+}
+
+#selectColor{
+    width: 210px;
+}
+
+#selectColor option{
+    background: var(--black);
+}
+
+#newNoteOptionCyan{
+    color: var(--cyan);
+}
+
+#newNoteOptionYellow{
+    color: var(--yellow);
+}
+
+#newNoteOptionMagenta{
+    color: var(--magenta);
+}
+
+#newNotePinAndSubmit{
+    display: flex;
+    justify-content: space-between;
+}
+
+#newNotePin{
+    flex-direction: row;
+}
+
+#newNotePin label{
+    margin: 0 10px 0 0;
+}
+
+#newNoteSubmit{
+    margin: 0 50px 0 0;
+}
+
+#newNoteSubmit button{
+    width: 100px;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--white);
+    background: var(--black);
+    border: 2px solid var(--white);
+    border-radius: 5px;
+}
+
+#newNoteSubmit button:focus{
+    color: var(--black);
+    background: var(--white);
+}
+
+#noteLightbox{
+    position: fixed;
+    z-index: 100;
+    width: 60%;
+    height: 60%;
+    background: var(--black);
+    border: 2px solid var(--cyan);
+    border-radius: 5px;
+    box-shadow: 0 0 7px var(--cyan),
+                0 0 10px var(--cyan),
+                0 0 25px var(--cyan);
+    display: none;
+}
+
+#noteLightbox.active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#noteLightbox > #noteEdit{
+    color: var(--cyan);
+    font-size: 2em;
+    width: 100%;
+}
+
+
+#noteLightbox > #noteIconClose{
+    color: var(--cyan);
+    font-size: 2.5em;
+    position: absolute;
+    top: 0.7em;
+    right: 0.7em;
+}
