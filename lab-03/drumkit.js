@@ -5,7 +5,7 @@ const metronome2 = document.querySelector('#metronome2')
 
 const tiles = document.querySelectorAll('.tile')
 
-const timeOut = 3000
+const timeOut = 10000
 let checkboxes = Array.from(document.querySelectorAll('input[type=checkbox]'))
 let playBtns = Array.from(document.querySelectorAll('.playSoundBtn'))
 let recordBtns = Array.from(document.querySelectorAll('.recordSoundBtn'))
@@ -57,8 +57,10 @@ function playSound(sound) {
     const audioTag = document.querySelector(`#${sound}`)
     audioTag.currentTime = 0
     audioTag.play()
-    if (switchRec === true)
+    if (switchRec === true){
+        if(sound === 'tink') return
         recordingTemp.push([Date.now(), sound])
+    }
 }
 
 function playRecording(recording) {
@@ -84,10 +86,10 @@ function playAllRecordings() {
             playAllBtn.style.background = '#35a7ff'
             setTimeout(() => {
                 playAllBtn.addEventListener('mouseover', () => {
-                    playSelectedBtn.style.background = '#C6C6C6'
+                    playAllBtn.style.background = '#C6C6C6'
                 })
                 playAllBtn.addEventListener('mouseout', () => {
-                    playSelectedBtn.style.background = '#fcfcfc'
+                    playAllBtn.style.background = '#fcfcfc'
                 })
                 playAllBtn.style.pointerEvents = 'auto'
                 playAllBtn.style.background = '#fcfcfc'
