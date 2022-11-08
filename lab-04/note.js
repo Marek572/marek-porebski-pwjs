@@ -4,7 +4,7 @@ export default class Note {
         this.content = content
         this.color = color
         this.pinNote = pinNote
-        this.creationDate = new Date().toISOString()
+        this.creationDate = new Date()
     }
 
     addNoteToLocalStorage() {
@@ -20,22 +20,35 @@ export default class Note {
 
     addNoteToMain() {
         const newNoteElement = document.createElement('div')
+        newNoteElement.id = `note${this.creationDate.toISOString()}`
         newNoteElement.classList.add('note')
         const newNoteColor = this.color
         if (newNoteColor !== 'Magenta')
             newNoteElement.classList.add(`noteColor${newNoteColor}`)
         newNoteElement.innerHTML = `
-        <div id="noteEdit">
-            <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
-            <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
-            <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
-        </div>
-        <p id="noteTitle">${this.title}</p>
-        <p id="noteDate">${this.creationDate.toLocaleString()}</p>
+            <p id="noteTitle">${this.title}</p>
+            <p id="noteDate">${this.creationDate.toLocaleString().slice(0,9)}</p>
         `
 
         newNoteElement.addEventListener('click', () => {
-            noteLightbox.classList.add('active')
+            if(clickedNote.target.id === 'noteIconPin')
+                console.log('pin')
+            else if(clickedNote.target.id === 'noteIconEdit')
+                console.log('edit')
+            else if(clickedNote.target.id === 'noteIconThrash')
+                console.log('thrash')
+            else{
+                noteLightbox.classList.add('active')
+                const tmp = parsedNotes.find(e => e.creationDate === clickedNote.target.id.slice(4))
+                noteLightboxTitle.value = tmp.title
+                noteLightboxContent.value = tmp.content
+                console.log(tmp)
+                noteLightboxEdit.style.color = `var(--${tmp.color})`
+                noteLightbox.style.border = `2px solid var(--${tmp.color})`
+                noteLightbox.style.boxShadow = `0 0 7px var(--${tmp.color}),
+                                                0 0 10px var(--${tmp.color}),
+                                                0 0 25px var(--${tmp.color})`
+            }
         })
 
         return newNoteElement

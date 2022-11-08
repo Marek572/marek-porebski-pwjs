@@ -22,21 +22,11 @@
       <!-- <form> -->
         <div id="newNoteTitle">
           <label>Title</label>
-          <input
-            type="text"
-            id="inputTitle"
-            placeholder="Input title here..."
-            required
-          />
+          <input type="text" id="inputTitle" placeholder="Input title here..." required />
         </div>
         <div id="newNoteContent">
           <label>Content</label>
-          <textarea
-            type="text"
-            id="inputContent"
-            placeholder="Input content here..."
-            required
-          ></textarea>
+          <textarea type="text" id="inputContent" placeholder="Input content here..." required></textarea>
         </div>
         <div id="newNoteColor">
           <label>Color</label>
@@ -60,41 +50,30 @@
       <!-- </form> -->
     </div>
     <div id="noteLightbox">
-      <div id="noteEdit">
-        <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
-        <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
-        <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
+      <div id="noteLightboxEdit">
+        <span>
+          <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
+          <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
+          <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
+        </span>
+        <i id="noteIconClose" class="fa-regular fa-x"></i>
       </div>
-      <i id="noteIconClose" class="fa-regular fa-x"></i>
+        <div id="noteLightboxContainer">
+          <input type="text" id="noteLightboxTitle" disabled />
+          <textarea type="text" id="noteLightboxContent" disabled ></textarea>
+        </div>
     </div>
     <main id="notes">
       <div id="newNoteBtn" class="note"><i class="fa-solid fa-plus"></i></div>
-      <div class="note">
+      <div id="note1" class="note">
         <div id="noteEdit">
-          <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
+          <!-- <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
           <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
-          <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
+          <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i> -->
+          <p style="text-align: left;">tag1, tag2, tag3, longtag</p>
         </div>
         <p id="noteTitle">Important note</p>
         <p id="noteDate">04/11/2022</p>
-      </div>
-      <div class="note noteColorCyan">
-        <div id="noteEdit">
-          <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
-          <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
-          <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
-        </div>
-        <p id="noteTitle">Less important note</p>
-        <p id="noteDate">05/11/2022</p>
-      </div>
-      <div class="note noteColorYellow">
-        <div id="noteEdit">
-          <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
-          <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
-          <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
-        </div>
-        <p id="noteTitle">Random note with long title</p>
-        <p id="noteDate">06/11/2022</p>
       </div>
     </main>
     <script type="module" src="script.js"></script>

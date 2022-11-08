@@ -9,13 +9,17 @@ const noteForm = document.querySelector('#noteForm')
 const noteFormTitle = document.querySelector('#inputTitle')
 const noteFormContent = document.querySelector('#inputContent')
 const noteFormSelectColor = document.querySelector('#selectColor')
+const noteFormRadioPinNoteNo = document.querySelector('#radioPinNoteNo')
 const noteFormSubmitBtn = document.querySelector('#submitBtn')
 
 const notes = document.querySelectorAll('.note')
 const localNotes = localStorage.getItem('notes')
 const parsedNotes = JSON.parse(localNotes)
 
+const noteLightboxEdit = document.querySelector('#noteLightboxEdit')
 const noteLightboxClose = document.querySelector('#noteIconClose')
+const noteLightboxTitle = document.querySelector('#noteLightboxTitle')
+const noteLightboxContent = document.querySelector('#noteLightboxContent')
 
 
 newNoteBtn.addEventListener('click', () => {
@@ -24,18 +28,6 @@ newNoteBtn.addEventListener('click', () => {
 
 noteFormSelectColor.addEventListener('change', () => {
     noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
-})
-
-notes.forEach(note => {
-    if (note.id !== 'newNoteBtn') {
-        note.addEventListener('click', () => {
-            noteLightbox.classList.add('active')
-        })
-    }
-})
-
-noteLightboxClose.addEventListener('click', () => {
-    noteLightbox.classList.remove('active')
 })
 
 const createNote = () => {
@@ -60,35 +52,57 @@ noteFormSubmitBtn.addEventListener('click', () => {
     if (noteFormTitle.value && noteFormContent.value) {
         createNote()
         noteForm.classList.remove('active')
+        noteFormTitle.value = ''
+        noteFormContent.value = ''
+        noteFormSelectColor.value = 'Magenta'
+        noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
+        noteFormRadioPinNoteNo.checked = true
     } else {
         alert('fill the gaps!')
         throw new Error('Fill the gaps!')
     }
 })
 
-parsedNotes.forEach((note) => {
 
-    const newLocalNote = document.createElement('div')
-    newLocalNote.classList.add('note')
-    const newLocalNoteColor = note.color
-    console.log(newLocalNoteColor)
-    if (newLocalNoteColor !== 'Magenta')
-        newLocalNote.classList.add(`noteColor${newLocalNoteColor}`)
-    newLocalNote.innerHTML = `
-        <div id="noteEdit">
-            <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
-            <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
-            <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
-        </div>
-        <p id="noteTitle">${note.title}</p>
-        <p id="noteDate">${note.creationDate.toLocaleString()}</p>
+if (parsedNotes) {
+    parsedNotes.forEach((note) => {
+
+        const newLocalNote = document.createElement('div')
+        newLocalNote.id = `note${note.creationDate}`
+        newLocalNote.classList.add('note')
+        const newLocalNoteColor = note.color
+        if (newLocalNoteColor !== 'Magenta')
+            newLocalNote.classList.add(`noteColor${newLocalNoteColor}`)
+
+        newLocalNote.innerHTML = `
+            <p id="noteTitle">${note.title}</p>
+            <p id="noteDate">${note.creationDate.slice(0,10)}</p>
         `
 
-    newLocalNote.addEventListener('click', () => {
-        noteLightbox.classList.add('active')
+        newLocalNote.addEventListener('click', (clickedNote) => {
+            if(clickedNote.target.id === 'noteIconPin')
+                console.log('pin')
+            else if(clickedNote.target.id === 'noteIconEdit')
+                console.log('edit')
+            else if(clickedNote.target.id === 'noteIconThrash')
+                console.log('thrash')
+            else{
+                noteLightbox.classList.add('active')
+                const tmp = parsedNotes.find(e => e.creationDate === clickedNote.target.id.slice(4))
+                noteLightboxTitle.value = tmp.title
+                noteLightboxContent.value = tmp.content
+                console.log(tmp)
+                noteLightboxEdit.style.color = `var(--${tmp.color})`
+                noteLightbox.style.border = `2px solid var(--${tmp.color})`
+                noteLightbox.style.boxShadow = `0 0 7px var(--${tmp.color}),
+                                                0 0 10px var(--${tmp.color}),
+                                                0 0 25px var(--${tmp.color})`
+            }
+        })
+        mainNotes.appendChild(newLocalNote)
     })
+}
 
-    mainNotes.appendChild(newLocalNote)
-
-    console.log(note)
+noteLightboxClose.addEventListener('click', () => {
+    noteLightbox.classList.remove('active')
 })

@@ -25,6 +25,7 @@ body{
     background: transparent;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 #newNoteBtn{
@@ -53,7 +54,8 @@ body{
     cursor: pointer;
     position: relative;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -82,14 +84,13 @@ body{
 }
 
 #noteEdit{
-    position: absolute;
-    top: 0.7em;
-    left: 0.7em;
+    margin: 0.7em 0.7em 0 0.7em;
 }
 
 p{
     margin: 0;
     padding: 0 0.7em;
+    pointer-events: none;
 }
 
 #noteTitle{
@@ -99,17 +100,16 @@ p{
 
 #noteDate{
     padding: 0;
-    position: absolute;
-    bottom: 0;
-    right: 0.7em;
-    bottom: 0.7em;
+    margin: 0.7em;
+    width: 90%;
+    text-align: right;
 }
 
 #noteForm{
     position: fixed;
     z-index: 100;
-    width: 60%;
-    height: 80%;
+    width: 25vw;
+    height: 50vh;
     color: var(--White);
     background: var(--Black);
     border: 2px solid var(--White);
@@ -126,9 +126,8 @@ p{
     flex-direction: column;
 }
 
-#noteForm input[type="text"], textarea, select{
+input[type="text"], textarea, select{
     color: var(--White);
-    margin: 5px 0 0 0;
     padding: 5px 0 5px 10px;
     font-family: 'Orbitron', sans-serif;
     font-size: 1em;
@@ -138,10 +137,6 @@ p{
     resize: none;
 }
 
-textarea{
-    padding: 10px;
-}
-
 #newNoteTitle,#newNoteContent,#newNoteColor,#newNotePin{
     display: flex;
     flex-direction: column;
@@ -149,7 +144,8 @@ textarea{
 }
 
 #inputContent{
-    height: 250px;
+    padding: 10px;
+    height: 25vh;
 }
 
 #selectColor{
@@ -207,8 +203,8 @@ textarea{
 #noteLightbox{
     position: fixed;
     z-index: 100;
-    width: 60%;
-    height: 60%;
+    width: 25vw;
+    height: 50vh;
     background: var(--Black);
     border: 2px solid var(--Cyan);
     border-radius: 5px;
@@ -221,20 +217,35 @@ textarea{
 #noteLightbox.active{
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
-#noteLightbox > #noteEdit{
+#noteLightbox > #noteLightboxEdit{
     color: var(--Cyan);
-    font-size: 2em;
-    width: 100%;
+    font-size: 1.5em;
+    margin: 1em 1em 0 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-
 
 #noteLightbox > #noteIconClose{
-    color: var(--Cyan);
-    font-size: 2.5em;
-    position: absolute;
-    top: 0.7em;
-    right: 0.7em;
+    font-size: 2em;
+}
+
+#noteLightboxContainer{
+    display: flex;
+    flex-direction: column;
+    margin: 1em 1.5em 1.5em 1.5em;
+    height: 100%;
+}
+
+#noteLightboxTitle{
+    padding: 10px;
+    margin: 0 0 0.7em 0;
+}
+
+#noteLightboxContent{
+    padding: 10px;
+    height: 100%;
 }
