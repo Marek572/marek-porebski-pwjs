@@ -6,10 +6,15 @@ const mainNotes = document.querySelector('#notes')
 
 const newNoteBtn = document.querySelector('#newNoteBtn')
 const noteForm = document.querySelector('#noteForm')
-const selectColor = document.querySelector('#selectColor')
-const submitBtn = document.querySelector('#submitBtn')
+const noteFormTitle = document.querySelector('#inputTitle')
+const noteFormContent = document.querySelector('#inputContent')
+const noteFormSelectColor = document.querySelector('#selectColor')
+const noteFormSubmitBtn = document.querySelector('#submitBtn')
 
 const notes = document.querySelectorAll('.note')
+const localNotes = localStorage.getItem('notes')
+const parsedNotes = JSON.parse(localNotes)
+
 const noteLightboxClose = document.querySelector('#noteIconClose')
 
 
@@ -17,8 +22,8 @@ newNoteBtn.addEventListener('click', () => {
     noteForm.classList.add('active')
 })
 
-selectColor.addEventListener('change', () => {
-    selectColor.style.border = `2px solid var(--${selectColor.value})`
+noteFormSelectColor.addEventListener('change', () => {
+    noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
 })
 
 notes.forEach(note => {
@@ -50,7 +55,40 @@ const createNote = () => {
     newNote.addNoteToLocalStorage()
     mainNotes.appendChild(newNote.addNoteToMain())
 }
-submitBtn.addEventListener('click', () => {
-    createNote()
-    noteForm.classList.remove('active') //if all required inputs filled
+noteFormSubmitBtn.addEventListener('click', () => {
+
+    if (noteFormTitle.value && noteFormContent.value) {
+        createNote()
+        noteForm.classList.remove('active')
+    } else {
+        alert('fill the gaps!')
+        throw new Error('Fill the gaps!')
+    }
+})
+
+parsedNotes.forEach((note) => {
+
+    const newLocalNote = document.createElement('div')
+    newLocalNote.classList.add('note')
+    const newLocalNoteColor = note.color
+    console.log(newLocalNoteColor)
+    if (newLocalNoteColor !== 'Magenta')
+        newLocalNote.classList.add(`noteColor${newLocalNoteColor}`)
+    newLocalNote.innerHTML = `
+        <div id="noteEdit">
+            <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
+            <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
+            <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
+        </div>
+        <p id="noteTitle">${note.title}</p>
+        <p id="noteDate">${note.creationDate.toLocaleString()}</p>
+        `
+
+    newLocalNote.addEventListener('click', () => {
+        noteLightbox.classList.add('active')
+    })
+
+    mainNotes.appendChild(newLocalNote)
+
+    console.log(note)
 })

@@ -23,7 +23,7 @@ export default class Note {
         newNoteElement.classList.add('note')
         const newNoteColor = this.color
         if (newNoteColor !== 'Magenta')
-            newNoteElement.classList.add(`noteColor${this.color}`)
+            newNoteElement.classList.add(`noteColor${newNoteColor}`)
         newNoteElement.innerHTML = `
         <div id="noteEdit">
             <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>

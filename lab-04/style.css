@@ -1,9 +1,9 @@
 :root{
-    --black: #020F16;
-    --white: #F7F9F9;
-    --cyan: #56FCFC;
-    --magenta: #CE44FF;
-    --yellow: #f2f103;
+    --Black: #020F16;
+    --White: #F7F9F9;
+    --Cyan: #56FCFC;
+    --Magenta: #CE44FF;
+    --Yellow: #f2f103;
 }
 
 body{
@@ -12,7 +12,7 @@ body{
     height: 100vh;
     font-size: 18px;
     font-family: 'Orbitron', sans-serif;
-    background:var(--black);
+    background:var(--Black);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -28,28 +28,28 @@ body{
 }
 
 #newNoteBtn{
-    color: var(--white);
+    color: var(--White);
     font-size: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid var(--white);
-    box-shadow: 0 0 7px var(--white),
-                0 0 10px var(--white),
-                0 0 25px var(--white);
+    border: 2px solid var(--White);
+    box-shadow: 0 0 7px var(--White),
+                0 0 10px var(--White),
+                0 0 25px var(--White);
 }
 
 .note{
     width: 246px;
     height: 246px;
     margin: 55px;
-    color: var(--magenta);
+    color: var(--Magenta);
     text-align: center;
-    border: 2px solid var(--magenta);
+    border: 2px solid var(--Magenta);
     border-radius: 5px;
-    box-shadow: 0 0 7px var(--magenta),
-                0 0 10px var(--magenta),
-                0 0 25px var(--magenta);
+    box-shadow: 0 0 7px var(--Magenta),
+                0 0 10px var(--Magenta),
+                0 0 25px var(--Magenta);
     cursor: pointer;
     position: relative;
     display: flex;
@@ -62,19 +62,19 @@ body{
 }
 
 .noteColorCyan{
-    color: var(--cyan);
-    border: 2px solid var(--cyan);
-    box-shadow: 0 0 7px var(--cyan),
-                0 0 10px var(--cyan),
-                0 0 25px var(--cyan);
+    color: var(--Cyan);
+    border: 2px solid var(--Cyan);
+    box-shadow: 0 0 7px var(--Cyan),
+                0 0 10px var(--Cyan),
+                0 0 25px var(--Cyan);
 }
 
 .noteColorYellow{
-    color: var(--yellow);
-    border: 2px solid var(--yellow);
-    box-shadow: 0 0 7px var(--yellow),
-                0 0 10px var(--yellow),
-                0 0 25px var(--yellow);
+    color: var(--Yellow);
+    border: 2px solid var(--Yellow);
+    box-shadow: 0 0 7px var(--Yellow),
+                0 0 10px var(--Yellow),
+                0 0 25px var(--Yellow);
 }
 
 .noteIcon{
@@ -93,7 +93,7 @@ p{
 }
 
 #noteTitle{
-    color: var(--white);
+    color: var(--White);
     overflow-wrap: break-word;
 }
 
@@ -109,14 +109,14 @@ p{
     position: fixed;
     z-index: 100;
     width: 60%;
-    height: 60%;
-    color: var(--white);
-    background: var(--black);
-    border: 2px solid var(--white);
+    height: 80%;
+    color: var(--White);
+    background: var(--Black);
+    border: 2px solid var(--White);
     border-radius: 5px;
-    box-shadow: 0 0 7px var(--white),
-                0 0 10px var(--white),
-                0 0 25px var(--white);
+    box-shadow: 0 0 7px var(--White),
+                0 0 10px var(--White),
+                0 0 25px var(--White);
     display: none;
 }
 
@@ -127,13 +127,13 @@ p{
 }
 
 #noteForm input[type="text"], textarea, select{
-    color: var(--white);
+    color: var(--White);
     margin: 5px 0 0 0;
     padding: 5px 0 5px 10px;
     font-family: 'Orbitron', sans-serif;
     font-size: 1em;
     background: transparent;
-    border: 2px solid var(--white);
+    border: 2px solid var(--White);
     border-radius: 5px;
     resize: none;
 }
@@ -149,27 +149,28 @@ textarea{
 }
 
 #inputContent{
-    height: 500px;
+    height: 250px;
 }
 
 #selectColor{
     width: 210px;
+    border: 2px solid var(--Magenta);
 }
 
 #selectColor option{
-    background: var(--black);
+    background: var(--Black);
 }
 
 #newNoteOptionCyan{
-    color: var(--cyan);
+    color: var(--Cyan);
 }
 
 #newNoteOptionYellow{
-    color: var(--yellow);
+    color: var(--Yellow);
 }
 
 #newNoteOptionMagenta{
-    color: var(--magenta);
+    color: var(--Magenta);
 }
 
 #newNotePinAndSubmit{
@@ -192,15 +193,15 @@ textarea{
 #newNoteSubmit button{
     width: 100px;
     font-family: 'Orbitron', sans-serif;
-    color: var(--white);
-    background: var(--black);
-    border: 2px solid var(--white);
+    color: var(--White);
+    background: var(--Black);
+    border: 2px solid var(--White);
     border-radius: 5px;
 }
 
 #newNoteSubmit button:focus{
-    color: var(--black);
-    background: var(--white);
+    color: var(--Black);
+    background: var(--White);
 }
 
 #noteLightbox{
@@ -208,12 +209,12 @@ textarea{
     z-index: 100;
     width: 60%;
     height: 60%;
-    background: var(--black);
-    border: 2px solid var(--cyan);
+    background: var(--Black);
+    border: 2px solid var(--Cyan);
     border-radius: 5px;
-    box-shadow: 0 0 7px var(--cyan),
-                0 0 10px var(--cyan),
-                0 0 25px var(--cyan);
+    box-shadow: 0 0 7px var(--Cyan),
+                0 0 10px var(--Cyan),
+                0 0 25px var(--Cyan);
     display: none;
 }
 
@@ -224,14 +225,14 @@ textarea{
 }
 
 #noteLightbox > #noteEdit{
-    color: var(--cyan);
+    color: var(--Cyan);
     font-size: 2em;
     width: 100%;
 }
 
 
 #noteLightbox > #noteIconClose{
-    color: var(--cyan);
+    color: var(--Cyan);
     font-size: 2.5em;
     position: absolute;
     top: 0.7em;
