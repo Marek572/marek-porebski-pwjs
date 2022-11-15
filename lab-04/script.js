@@ -3,6 +3,7 @@ import Note from "./note.js"
 // //style.getPropertyValue('--yellow')
 
 const mainNotes = document.querySelector('#notes')
+let noteList
 
 const newNoteBtn = document.querySelector('#newNoteBtn')
 const noteForm = document.querySelector('#noteForm')
@@ -15,17 +16,14 @@ const noteFormSubmitBtn = document.querySelector('#submitBtn')
 const localNotes = localStorage.getItem('notes')
 const parsedNotes = JSON.parse(localNotes)
 
-const noteLightboxButtons = document.querySelector('#noteLightboxButtons')
+const noteLightbox = document.querySelector('.noteLightbox')
 const noteLightboxPin = document.querySelector('#noteLightboxPin')
 const noteLightboxEdit = document.querySelector('#noteLightboxEdit')
 const noteLightboxThrash = document.querySelector('#noteLightboxThrash')
 const noteLightboxClose = document.querySelector('#noteLightboxClose')
-const noteLightboxTitle = document.querySelector('#noteLightboxTitle')
-const noteLightboxContent = document.querySelector('#noteLightboxContent')
-
 
 newNoteBtn.addEventListener('click', () => {
-    noteForm.classList.add('active')
+    noteForm.classList.toggle('active')
     mainNotes.style.display = 'none'
 })
 
@@ -46,13 +44,17 @@ const createNote = () => {
     })
 
     newNote.addNoteToLocalStorage()
-    mainNotes.appendChild(newNote.addNoteToMain())
+    const tmp = newNote.addNoteToMain()
+    mainNotes.appendChild(tmp)
+    noteList = null
+    noteList += tmp
 }
+
 noteFormSubmitBtn.addEventListener('click', () => {
 
     if (noteFormTitle.value && noteFormContent.value) {
         createNote()
-        noteForm.classList.remove('active')
+        noteForm.classList.toggle('active')
         noteFormTitle.value = ''
         noteFormContent.value = ''
         noteFormSelectColor.value = 'Magenta'
@@ -65,66 +67,58 @@ noteFormSubmitBtn.addEventListener('click', () => {
 })
 
 noteFormCancelBtn.addEventListener('click', () => {
-    noteForm.classList.remove('active')
+    noteForm.classList.toggle('active')
+    noteFormTitle.value = ''
+    noteFormContent.value = ''
+    noteFormSelectColor.value = 'Magenta'
+    noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
     mainNotes.style.display = 'flex'
 })
 
 
-// const updateMainNotes = () => {
-
-// }
-
-let noteLightboxObject
-let noteLightboxObjectIndex = parsedNotes.indexOf(noteLightboxObject)
-let noteLightboxTarget
 if (parsedNotes) {
     parsedNotes.forEach((note) => {
 
-        const newLocalNote = document.createElement('div')
-        newLocalNote.id = `note${note.creationDate}`
-        newLocalNote.classList.add('note')
-        const newLocalNoteColor = note.color
-        if (newLocalNoteColor !== 'Magenta')
-            newLocalNote.classList.add(`noteColor${newLocalNoteColor}`)
-
-        newLocalNote.innerHTML = `
-            <p id="noteTitle">${note.title}</p>
-            <p id="noteDate">${note.creationDate.slice(0, 10)}</p>
-        `
-
-        newLocalNote.addEventListener('click', (clickedNote) => {
-            noteLightbox.classList.add('active')
-            noteLightboxObject = parsedNotes.find(e => e.creationDate === clickedNote.target.id.slice(4))
-            noteLightboxTarget = clickedNote.target
-            noteLightboxTitle.value = noteLightboxObject.title
-            noteLightboxContent.value = noteLightboxObject.content
-            console.log(noteLightboxObject)
-            noteLightboxButtons.style.color = `var(--${noteLightboxObject.color})`
-            noteLightbox.style.border = `2px solid var(--${noteLightboxObject.color})`
-            noteLightbox.style.boxShadow = `0 0 7px var(--${noteLightboxObject.color}),
-                                                0 0 10px var(--${noteLightboxObject.color}),
-                                                0 0 25px var(--${noteLightboxObject.color})`
+        const tmp = new Note({
+            title: note.title,
+            content: note.content,
+            color: note.color,
+            creationDate: note.creationDate
         })
-        mainNotes.appendChild(newLocalNote)
-    })
 
-    noteLightboxPin.addEventListener('click', () => {
-        console.log('click')
-        parsedNotes.splice(noteLightboxObjectIndex, 1)
-        parsedNotes.splice(0, 0, noteLightboxObject)
-        localStorage.setItem('notes', JSON.stringify(parsedNotes))
-        //updateMainNotes
-        noteLightbox.classList.remove('active')
-        noteLightboxTarget.remove()
+        mainNotes.appendChild(tmp.addNoteToMain())
     })
-    noteLightboxThrash.addEventListener('click', () => {
-        parsedNotes.splice(noteLightboxObjectIndex, 1)
-        localStorage.setItem('notes', JSON.stringify(parsedNotes))
-        //updateMainNotes
-        noteLightbox.classList.remove('active')
-        noteLightboxTarget.remove()
-    })
-    noteLightboxClose.addEventListener('click', () => {
-        noteLightbox.classList.remove('active')
-    })
+    noteList = document.querySelectorAll('.note')
 }
+
+//function?
+noteLightboxPin.addEventListener('click', () => {
+    const noteLightboxObject = parsedNotes.find(e => e.creationDate == noteLightbox.id)
+    const noteLightboxObjectIndex = parsedNotes.indexOf(noteLightboxObject)
+    parsedNotes.splice(noteLightboxObjectIndex, 1)
+    parsedNotes.splice(0, 0, noteLightboxObject)
+    localStorage.setItem('notes', JSON.stringify(parsedNotes))
+    const currentNote = document.querySelector(`#note${noteLightbox.id}`)
+    const cloneCurrentNote = currentNote.cloneNode(true)
+    currentNote.remove()
+    newNoteBtn.after(cloneCurrentNote)
+    noteLightbox.classList.toggle('active')
+    mainNotes.style.display = 'flex'
+})
+noteLightboxEdit.addEventListener('click', () => {
+
+})
+noteLightboxThrash.addEventListener('click', () => {
+    const noteLightboxObject = parsedNotes.find(e => e.creationDate == noteLightbox.id)
+    const noteLightboxObjectIndex = parsedNotes.indexOf(noteLightboxObject)
+    parsedNotes.splice(noteLightboxObjectIndex, 1)
+    localStorage.setItem('notes', JSON.stringify(parsedNotes))
+    const currentNote = document.querySelector(`#note${noteLightbox.id}`)
+    currentNote.remove()
+    noteLightbox.classList.toggle('active')
+    mainNotes.style.display = 'flex'
+})
+noteLightboxClose.addEventListener('click', () => {
+    noteLightbox.classList.toggle('active')
+    mainNotes.style.display = 'flex'
+})

@@ -30,6 +30,9 @@ body{
 
 #newNoteBtn{
     color: var(--White);
+    width: 246px;
+    height: 246px;
+    margin: 55px;
     font-size: 24px;
     display: flex;
     justify-content: center;
@@ -38,6 +41,10 @@ body{
     box-shadow: 0 0 7px var(--White),
                 0 0 10px var(--White),
                 0 0 25px var(--White);
+}
+
+#newNoteBtn:active{
+    transform: scale(0.95);
 }
 
 .note{
@@ -190,12 +197,17 @@ input[type="text"], textarea, select{
     opacity: 0.7;
 }
 
+#newNoteCancel button:focus{
+    background: var(--White);
+    color: var(--Black);
+}
+
 #newNoteSubmit button:focus{
     color: var(--Black);
     background: var(--White);
 }
 
-#noteLightbox{
+.noteLightbox{
     position: fixed;
     z-index: 100;
     width: 25vw;
@@ -209,13 +221,13 @@ input[type="text"], textarea, select{
     display: none;
 }
 
-#noteLightbox.active{
+.noteLightbox.active{
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-#noteLightbox > #noteLightboxButtons{
+.noteLightbox > #noteLightboxButtons{
     color: var(--Cyan);
     font-size: 1.5em;
     margin: 1em 1em 0 1em;
@@ -224,7 +236,7 @@ input[type="text"], textarea, select{
     justify-content: space-between;
 }
 
-#noteLightbox > #noteIconClose{
+.noteLightbox > #noteIconClose{
     font-size: 2em;
 }
 
