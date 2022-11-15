@@ -28,6 +28,7 @@
           <label>Content</label>
           <textarea type="text" id="inputContent" placeholder="Input content here..." required></textarea>
         </div>
+        <!-- tagi do notatek max 5 user sam -->
         <div id="newNoteColor">
           <label>Color</label>
           <select id="selectColor">
@@ -36,11 +37,9 @@
             <option id="newNoteOptionYellow" value="Yellow">Yellow</option>
           </select>
         </div>
-        <div id="newNotePinAndSubmit">
-          <div id="newNotePin">
-            <label>Pin note?</label>
-            <input type="radio" name="pin" id="radioPinNoteYes" value="true" />Yes
-            <input type="radio" name="pin" id="radioPinNoteNo" value="false" checked />No
+        <div id="newNoteCancelAndSubmit">
+          <div id="newNoteCancel">
+            <button id="cancelBtn">Cancel</button>
           </div>
           <div id="newNoteSubmit">
             <!-- <input type="submit" id="submitBtn" value="Add note" /> -->
@@ -50,13 +49,13 @@
       <!-- </form> -->
     </div>
     <div id="noteLightbox">
-      <div id="noteLightboxEdit">
+      <div id="noteLightboxButtons">
         <span>
-          <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
-          <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
-          <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i>
+          <i id="noteLightboxPin" class="fa-regular fa-thumbtack noteIcon"></i>
+          <i id="noteLightboxEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
+          <i id="noteLightboxThrash" class="fa-regular fa-trash-can noteIcon"></i>
         </span>
-        <i id="noteIconClose" class="fa-regular fa-x"></i>
+        <i id="noteLightboxClose" class="fa-regular fa-x"></i>
       </div>
         <div id="noteLightboxContainer">
           <input type="text" id="noteLightboxTitle" disabled />

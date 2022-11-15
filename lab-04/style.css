@@ -137,10 +137,10 @@ input[type="text"], textarea, select{
     resize: none;
 }
 
-#newNoteTitle,#newNoteContent,#newNoteColor,#newNotePin{
+#newNoteTitle,#newNoteContent,#newNoteColor, #newNoteCancelAndSubmit{
     display: flex;
     flex-direction: column;
-    margin: 0 50px 10px 50px;
+    margin: 0 1.5em 10px 1.5em;
 }
 
 #inputContent{
@@ -149,7 +149,6 @@ input[type="text"], textarea, select{
 }
 
 #selectColor{
-    width: 210px;
     border: 2px solid var(--Magenta);
 }
 
@@ -169,30 +168,26 @@ input[type="text"], textarea, select{
     color: var(--Magenta);
 }
 
-#newNotePinAndSubmit{
+#newNoteCancelAndSubmit{
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
-#newNotePin{
-    flex-direction: row;
-}
-
-#newNotePin label{
-    margin: 0 10px 0 0;
-}
-
-#newNoteSubmit{
-    margin: 0 50px 0 0;
-}
-
-#newNoteSubmit button{
+#newNoteCancelAndSubmit button{
     width: 100px;
     font-family: 'Orbitron', sans-serif;
     color: var(--White);
     background: var(--Black);
     border: 2px solid var(--White);
     border-radius: 5px;
+}
+
+#newNoteCancel button{
+    color: var(--White);
+    background: var(--Black);
+    border: 2px solid var(--White);
+    opacity: 0.7;
 }
 
 #newNoteSubmit button:focus{
@@ -220,7 +215,7 @@ input[type="text"], textarea, select{
     flex-direction: column;
 }
 
-#noteLightbox > #noteLightboxEdit{
+#noteLightbox > #noteLightboxButtons{
     color: var(--Cyan);
     font-size: 1.5em;
     margin: 1em 1em 0 1em;

@@ -1,6 +1,6 @@
 import Note from "./note.js"
-const style = getComputedStyle(document.body)
-//style.getPropertyValue('--yellow')
+// const style = getComputedStyle(document.body)
+// //style.getPropertyValue('--yellow')
 
 const mainNotes = document.querySelector('#notes')
 
@@ -9,21 +9,24 @@ const noteForm = document.querySelector('#noteForm')
 const noteFormTitle = document.querySelector('#inputTitle')
 const noteFormContent = document.querySelector('#inputContent')
 const noteFormSelectColor = document.querySelector('#selectColor')
-const noteFormRadioPinNoteNo = document.querySelector('#radioPinNoteNo')
+const noteFormCancelBtn = document.querySelector('#cancelBtn')
 const noteFormSubmitBtn = document.querySelector('#submitBtn')
 
-const notes = document.querySelectorAll('.note')
 const localNotes = localStorage.getItem('notes')
 const parsedNotes = JSON.parse(localNotes)
 
+const noteLightboxButtons = document.querySelector('#noteLightboxButtons')
+const noteLightboxPin = document.querySelector('#noteLightboxPin')
 const noteLightboxEdit = document.querySelector('#noteLightboxEdit')
-const noteLightboxClose = document.querySelector('#noteIconClose')
+const noteLightboxThrash = document.querySelector('#noteLightboxThrash')
+const noteLightboxClose = document.querySelector('#noteLightboxClose')
 const noteLightboxTitle = document.querySelector('#noteLightboxTitle')
 const noteLightboxContent = document.querySelector('#noteLightboxContent')
 
 
 newNoteBtn.addEventListener('click', () => {
     noteForm.classList.add('active')
+    mainNotes.style.display = 'none'
 })
 
 noteFormSelectColor.addEventListener('change', () => {
@@ -35,13 +38,11 @@ const createNote = () => {
     const title = document.querySelector('#inputTitle').value
     const content = document.querySelector('#inputContent').value
     const color = document.querySelector('#selectColor').value
-    const pinNote = document.querySelector('input[name="pin"]:checked').value
 
     const newNote = new Note({
         title,
         content,
-        color,
-        pinNote
+        color
     })
 
     newNote.addNoteToLocalStorage()
@@ -56,14 +57,26 @@ noteFormSubmitBtn.addEventListener('click', () => {
         noteFormContent.value = ''
         noteFormSelectColor.value = 'Magenta'
         noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
-        noteFormRadioPinNoteNo.checked = true
+        mainNotes.style.display = 'flex'
     } else {
         alert('fill the gaps!')
         throw new Error('Fill the gaps!')
     }
 })
 
+noteFormCancelBtn.addEventListener('click', () => {
+    noteForm.classList.remove('active')
+    mainNotes.style.display = 'flex'
+})
 
+
+// const updateMainNotes = () => {
+
+// }
+
+let noteLightboxObject
+let noteLightboxObjectIndex = parsedNotes.indexOf(noteLightboxObject)
+let noteLightboxTarget
 if (parsedNotes) {
     parsedNotes.forEach((note) => {
 
@@ -76,33 +89,42 @@ if (parsedNotes) {
 
         newLocalNote.innerHTML = `
             <p id="noteTitle">${note.title}</p>
-            <p id="noteDate">${note.creationDate.slice(0,10)}</p>
+            <p id="noteDate">${note.creationDate.slice(0, 10)}</p>
         `
 
         newLocalNote.addEventListener('click', (clickedNote) => {
-            if(clickedNote.target.id === 'noteIconPin')
-                console.log('pin')
-            else if(clickedNote.target.id === 'noteIconEdit')
-                console.log('edit')
-            else if(clickedNote.target.id === 'noteIconThrash')
-                console.log('thrash')
-            else{
-                noteLightbox.classList.add('active')
-                const tmp = parsedNotes.find(e => e.creationDate === clickedNote.target.id.slice(4))
-                noteLightboxTitle.value = tmp.title
-                noteLightboxContent.value = tmp.content
-                console.log(tmp)
-                noteLightboxEdit.style.color = `var(--${tmp.color})`
-                noteLightbox.style.border = `2px solid var(--${tmp.color})`
-                noteLightbox.style.boxShadow = `0 0 7px var(--${tmp.color}),
-                                                0 0 10px var(--${tmp.color}),
-                                                0 0 25px var(--${tmp.color})`
-            }
+            noteLightbox.classList.add('active')
+            noteLightboxObject = parsedNotes.find(e => e.creationDate === clickedNote.target.id.slice(4))
+            noteLightboxTarget = clickedNote.target
+            noteLightboxTitle.value = noteLightboxObject.title
+            noteLightboxContent.value = noteLightboxObject.content
+            console.log(noteLightboxObject)
+            noteLightboxButtons.style.color = `var(--${noteLightboxObject.color})`
+            noteLightbox.style.border = `2px solid var(--${noteLightboxObject.color})`
+            noteLightbox.style.boxShadow = `0 0 7px var(--${noteLightboxObject.color}),
+                                                0 0 10px var(--${noteLightboxObject.color}),
+                                                0 0 25px var(--${noteLightboxObject.color})`
         })
         mainNotes.appendChild(newLocalNote)
     })
-}
 
-noteLightboxClose.addEventListener('click', () => {
-    noteLightbox.classList.remove('active')
-})
+    noteLightboxPin.addEventListener('click', () => {
+        console.log('click')
+        parsedNotes.splice(noteLightboxObjectIndex, 1)
+        parsedNotes.splice(0, 0, noteLightboxObject)
+        localStorage.setItem('notes', JSON.stringify(parsedNotes))
+        //updateMainNotes
+        noteLightbox.classList.remove('active')
+        noteLightboxTarget.remove()
+    })
+    noteLightboxThrash.addEventListener('click', () => {
+        parsedNotes.splice(noteLightboxObjectIndex, 1)
+        localStorage.setItem('notes', JSON.stringify(parsedNotes))
+        //updateMainNotes
+        noteLightbox.classList.remove('active')
+        noteLightboxTarget.remove()
+    })
+    noteLightboxClose.addEventListener('click', () => {
+        noteLightbox.classList.remove('active')
+    })
+}
