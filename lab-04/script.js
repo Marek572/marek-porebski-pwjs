@@ -16,7 +16,7 @@ const noteFormSubmitBtn = document.querySelector('#submitBtn')
 const localNotes = localStorage.getItem('notes')
 const parsedNotes = JSON.parse(localNotes)
 
-const noteLightbox = document.querySelector('.noteLightbox')
+let noteLightbox = document.querySelector('.noteLightbox')
 const noteLightboxPin = document.querySelector('#noteLightboxPin')
 const noteLightboxEdit = document.querySelector('#noteLightboxEdit')
 const noteLightboxThrash = document.querySelector('#noteLightboxThrash')
@@ -98,21 +98,23 @@ noteLightboxPin.addEventListener('click', () => {
     parsedNotes.splice(noteLightboxObjectIndex, 1)
     parsedNotes.splice(0, 0, noteLightboxObject)
     localStorage.setItem('notes', JSON.stringify(parsedNotes))
+    noteLightbox = document.querySelector('.noteLightbox')
     const currentNote = document.querySelector(`#note${noteLightbox.id}`)
-    const cloneCurrentNote = currentNote.cloneNode(true)
+    const cloneCurrentNote = currentNote
     currentNote.remove()
     newNoteBtn.after(cloneCurrentNote)
     noteLightbox.classList.toggle('active')
     mainNotes.style.display = 'flex'
 })
 noteLightboxEdit.addEventListener('click', () => {
-
+    
 })
 noteLightboxThrash.addEventListener('click', () => {
     const noteLightboxObject = parsedNotes.find(e => e.creationDate == noteLightbox.id)
     const noteLightboxObjectIndex = parsedNotes.indexOf(noteLightboxObject)
     parsedNotes.splice(noteLightboxObjectIndex, 1)
     localStorage.setItem('notes', JSON.stringify(parsedNotes))
+    noteLightbox = document.querySelector('.noteLightbox')
     const currentNote = document.querySelector(`#note${noteLightbox.id}`)
     currentNote.remove()
     noteLightbox.classList.toggle('active')
