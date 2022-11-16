@@ -29,10 +29,15 @@
           <textarea type="text" id="inputContent" placeholder="Input content here..." required></textarea>
         </div>
         <!-- tagi do notatek max3 user sam -->
-        <!-- <div id="newNoteTags">
+        <div id="newNoteTags">
           <label>Tags</label>
-          <input type="text" id="inputTags" data-role="taginput" data-tag-trigger="Space">
-        </div> -->
+          <div type="text" id="tagList">
+            <div class="tag">
+              <span>tag1</span>
+            </div>
+            <input type="text" id="inputTag">
+          </div>
+        </div>
         <div id="newNoteColor">
           <label>Color</label>
           <select id="selectColor">
@@ -65,20 +70,11 @@
         <div id="noteLightboxContainer">
           <input type="text" id="noteLightboxTitle" disabled />
           <textarea type="text" id="noteLightboxContent" disabled ></textarea>
+          <input type="text" id="noteLightboxTags" disabled ></textarea> <!-- TODO: generateTags -->
         </div>
     </div>
     <main id="notes">
       <div id="newNoteBtn" ><i class="fa-solid fa-plus"></i></div>
-      <div id="note1" class="note">
-        <div id="noteEdit">
-          <!-- <i id="noteIconPin" class="fa-regular fa-thumbtack noteIcon"></i>
-          <i id="noteIconEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
-          <i id="noteIconThrash" class="fa-regular fa-trash-can noteIcon"></i> -->
-          <p style="text-align: left;">tag1, tag2, tag3, longtag</p>
-        </div>
-        <p id="noteTitle">Important note</p>
-        <p id="noteDate">04/11/2022</p>
-      </div>
     </main>
     <script type="module" src="script.js"></script>
   </body>

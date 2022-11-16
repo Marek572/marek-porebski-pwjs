@@ -4,6 +4,7 @@
     --Cyan: #56FCFC;
     --Magenta: #CE44FF;
     --Yellow: #f2f103;
+    --Red: #FF2C55;
 }
 
 body{
@@ -90,9 +91,9 @@ body{
     font-size: 1.2em;
 }
 
-#noteEdit{
+/* #noteEdit{
     margin: 0.7em 0.7em 0 0.7em;
-}
+} */
 
 p{
     margin: 0;
@@ -100,8 +101,17 @@ p{
     pointer-events: none;
 }
 
+#noteTags{
+    padding: 0;
+    margin: 0.7em;
+    width: 90%;
+    text-align: left;
+}
+
 #noteTitle{
     color: var(--White);
+    margin: 0.7em;
+    width: 80%;
     overflow-wrap: break-word;
 }
 
@@ -116,7 +126,7 @@ p{
     position: fixed;
     z-index: 100;
     width: 25vw;
-    height: 50vh;
+    height: 52vh;
     color: var(--White);
     background: var(--Black);
     border: 2px solid var(--White);
@@ -133,7 +143,7 @@ p{
     flex-direction: column;
 }
 
-input[type="text"], textarea, select{
+input[type="text"], textarea, select, #tagList{
     color: var(--White);
     padding: 5px 0 5px 10px;
     font-family: 'Orbitron', sans-serif;
@@ -144,19 +154,41 @@ input[type="text"], textarea, select{
     resize: none;
 }
 
-#newNoteTitle,#newNoteContent,#newNoteColor, #newNoteCancelAndSubmit{
+#newNoteTitle,#newNoteContent,#newNoteColor, #newNoteCancelAndSubmit, #newNoteTags{
     display: flex;
     flex-direction: column;
-    margin: 0 1.5em 10px 1.5em;
+    margin: 0 1.5em 0.5em 1.5em;
 }
 
 #inputContent{
     padding: 10px;
-    height: 25vh;
+    height: 20vh;
+}
+
+#tagList{
+    display: flex;
+    padding: 0.3em;
+}
+
+#inputTag{
+    flex: 1;
+    padding: 0.5em;
+    outline: none;
+    border: 0;
+}
+
+.tag{
+    margin: 0 0.3em 0 0;
+    padding: 0.5em;
+    color: var(--White);
+    background: var(--Black);
+    border: 2px solid var(--Red);
+    border-radius: 5px;
 }
 
 #selectColor{
     border: 2px solid var(--Magenta);
+    outline: none;
 }
 
 #selectColor option{

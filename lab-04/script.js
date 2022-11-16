@@ -9,6 +9,8 @@ const newNoteBtn = document.querySelector('#newNoteBtn')
 const noteForm = document.querySelector('#noteForm')
 const noteFormTitle = document.querySelector('#inputTitle')
 const noteFormContent = document.querySelector('#inputContent')
+const noteFormTagList = document.querySelector('#tagList')
+const noteFormInputTag = document.querySelector('#inputTag')
 const noteFormSelectColor = document.querySelector('#selectColor')
 const noteFormCancelBtn = document.querySelector('#cancelBtn')
 const noteFormSubmitBtn = document.querySelector('#submitBtn')
@@ -36,10 +38,12 @@ const createNote = () => {
     const title = document.querySelector('#inputTitle').value
     const content = document.querySelector('#inputContent').value
     const color = document.querySelector('#selectColor').value
+    const tags = noteFormTags
 
     const newNote = new Note({
         title,
         content,
+        tags,
         color
     })
 
@@ -50,6 +54,51 @@ const createNote = () => {
     noteList += tmp
 }
 
+
+//TODO: move to tags.js
+let noteFormTags = []
+const createTag = (label) => {
+    const newTag = document.createElement('div')
+    newTag.classList.add('tag')
+    const newTagSpan = document.createElement('span')
+    newTagSpan.innerHTML = label
+
+    newTag.addEventListener('click', () => {
+        noteFormTags.splice(noteFormTags.indexOf(label),1)
+        newTag.remove()
+    })
+
+    newTag.appendChild(newTagSpan)
+
+    return newTag
+}
+
+const resetTags = () => {
+    document.querySelectorAll('.tag').forEach( (tag) => {
+        tag.parentElement.removeChild(tag)
+    })
+}
+
+const generateTags = () => {
+    resetTags()
+    noteFormTags.forEach( (tag) => {
+        const newTag = createTag(tag)
+        noteFormTagList.insertBefore(newTag, noteFormInputTag)
+    })
+}
+
+
+noteFormInputTag.addEventListener('keyup', (e) => {
+    //TODO: sprawdzanie czy tag nie jest pusty
+    if(noteFormInputTag.value === ' ')
+        return noteFormInputTag.value = ''
+    else if(e.key === 'Enter') {
+        noteFormTags.push(noteFormInputTag.value)
+        generateTags()
+        noteFormInputTag.value = ''
+    }
+})
+
 noteFormSubmitBtn.addEventListener('click', () => {
 
     if (noteFormTitle.value && noteFormContent.value) {
@@ -57,6 +106,7 @@ noteFormSubmitBtn.addEventListener('click', () => {
         noteForm.classList.toggle('active')
         noteFormTitle.value = ''
         noteFormContent.value = ''
+        noteFormTags = []
         noteFormSelectColor.value = 'Magenta'
         noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
         mainNotes.style.display = 'flex'
@@ -82,6 +132,7 @@ if (parsedNotes) {
         const tmp = new Note({
             title: note.title,
             content: note.content,
+            tags: note.tags,
             color: note.color,
             creationDate: note.creationDate
         })
@@ -124,3 +175,4 @@ noteLightboxClose.addEventListener('click', () => {
     noteLightbox.classList.toggle('active')
     mainNotes.style.display = 'flex'
 })
+

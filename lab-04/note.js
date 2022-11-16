@@ -2,13 +2,15 @@ const noteLightbox = document.querySelector('.noteLightbox')
 const noteLightboxButtons = document.querySelector('#noteLightboxButtons')
 const noteLightboxTitle = document.querySelector('#noteLightboxTitle')
 const noteLightboxContent = document.querySelector('#noteLightboxContent')
+const noteLightboxTags = document.querySelector('#noteLightboxTags')
 
 const mainNotes = document.querySelector('#notes')
 
 export default class Note {
-    constructor({ title, content, color, creationDate }) {
+    constructor({ title, content, tags, color, creationDate }) {
         this.title = title
         this.content = content
+        this.tags = tags
         this.color = color
         this.creationDate = creationDate === undefined ? Date.now() : creationDate
     }
@@ -33,6 +35,7 @@ export default class Note {
             newLocalNote.classList.add(`noteColor${newLocalNoteColor}`)
 
         newLocalNote.innerHTML = `
+            <p id="noteTags">${this.tags}</p>
             <p id="noteTitle">${this.title}</p>
             <p id="noteDate">${(new Date(this.creationDate)).toLocaleDateString()}</p>
         `
@@ -51,6 +54,7 @@ export default class Note {
             const noteLightboxObject = parsedNotes.find(e => e.creationDate == noteLightbox.id)
             noteLightboxTitle.value = noteLightboxObject.title
             noteLightboxContent.value = noteLightboxObject.content
+            noteLightboxTags.value = noteLightboxObject.tags
             noteLightboxButtons.style.color = `var(--${noteLightboxObject.color})`
             noteLightbox.style.border = `2px solid var(--${noteLightboxObject.color})`
             noteLightbox.style.boxShadow = `0 0 7px var(--${noteLightboxObject.color}),
