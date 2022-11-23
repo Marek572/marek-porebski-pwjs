@@ -28,8 +28,7 @@ export const addEventsLightboxBtns = () => {
     const noteLightboxClose = document.querySelector('#noteLightboxClose')
 
     noteLightboxPin.addEventListener('click', () => {
-        const noteLightboxObject = parsedNotes.find(e => e.creationDate == noteLightbox.id)
-        const noteLightboxObjectIndex = parsedNotes.indexOf(noteLightboxObject)
+        parsedNotes = localStorageToParsedNotes()
         parsedNotes.splice(noteLightboxObjectIndex, 1)
         parsedNotes.splice(0, 0, noteLightboxObject)
         localStorage.setItem('notes', JSON.stringify(parsedNotes))
@@ -42,6 +41,7 @@ export const addEventsLightboxBtns = () => {
         mainContent.style.display = 'flex'
     })
     noteLightboxEdit.addEventListener('click', () => {
+        parsedNotes = localStorageToParsedNotes()
         noteLightbox.classList.toggle('active')
         noteEdit.classList.toggle('active')
         const noteLightboxObject = parsedNotes.find(e => e.creationDate == noteLightbox.id)
@@ -59,6 +59,7 @@ export const addEventsLightboxBtns = () => {
         noteEditSelectColor.style.border = `2px solid var(--${noteEditSelectColor.value})`
     })
     noteLightboxThrash.addEventListener('click', () => {
+        parsedNotes = localStorageToParsedNotes()
         const noteLightboxObject = parsedNotes.find(e => e.creationDate == noteLightbox.id)
         const noteLightboxObjectIndex = parsedNotes.indexOf(noteLightboxObject)
         parsedNotes.splice(noteLightboxObjectIndex, 1)
