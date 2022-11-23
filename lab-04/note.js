@@ -16,6 +16,7 @@ export default class Note {
         this.creationDate = creationDate === undefined ? Date.now() : creationDate
     }
 
+    //storage?
     addNoteToLocalStorage() {
         const parsedNotes = localStorageToParsedNotes()
         parsedNotes.push(this)

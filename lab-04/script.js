@@ -2,6 +2,7 @@ import localStorageToParsedNotes from "./storage.js"
 let parsedNotes = localStorageToParsedNotes()
 
 import Note from "./note.js"
+import BulletListItem from "./bulletListItem.js"
 import searchBar from "./searchNotes.js"
 import { addEventNewNoteBtn, addEventsLightboxBtns } from "./buttons.js"
 import { noteFormTags, noteEditTags, generateTags, clearTags } from "./tags.js"
@@ -13,12 +14,13 @@ const cancelBtns = document.querySelectorAll('.cancelBtn')
 const submitBtns = document.querySelectorAll('.submitBtn')
 
 const newNoteForm = document.querySelector('#newNoteForm')
-// const noteFormNoteTypeNoteBtn = document.querySelector('#newNoteTypeNoteBtn')
-// const noteFormTypeBulletListBtn = document.querySelector('#newNoteTypeBulletListBtn')
+const noteFormNoteTypeNoteBtn = document.querySelector('#newNoteTypeNoteBtn')
+const noteFormTypeBulletListBtn = document.querySelector('#newNoteTypeBulletListBtn')
 const noteFormTitle = document.querySelector('#inputTitle')
-// const noteFormContentContainer = document.querySelector('#newNoteContent')
+const noteFormContentContainer = document.querySelector('#newNoteContent')
 const noteFormContent = document.querySelector('#inputContent')
-// const noteFormBulletListContainer = document.querySelector('#newNoteBulletList')
+const noteFormBulletListContainer = document.querySelector('#newNoteBulletList')
+const noteFormInputBulletItem = document.querySelector('#newNoteInputBulletItem')
 const noteFormTagList = document.querySelector('#newNoteTagList')
 const noteFormInputTag = document.querySelector('#newNoteInputTag')
 const noteFormSelectColor = document.querySelector('#selectColor')
@@ -54,19 +56,19 @@ if (parsedNotes) {
 }
 
 //TODO: on cancel click -> typeNote
-// noteFormTypeBulletListBtn.addEventListener('click', () => {
-//     noteFormTypeBulletListBtn.style.display = 'none'
-//     noteFormContentContainer.style.display = 'none'
-//     noteFormNoteTypeNoteBtn.style.display = 'flex'
-//     noteFormBulletListContainer.style.display = 'flex'
-// })
+noteFormTypeBulletListBtn.addEventListener('click', () => {
+    noteFormTypeBulletListBtn.style.display = 'none'
+    noteFormContentContainer.style.display = 'none'
+    noteFormNoteTypeNoteBtn.style.display = 'flex'
+    noteFormBulletListContainer.style.display = 'flex'
+})
 
-// noteFormNoteTypeNoteBtn.addEventListener('click', () => {
-//     noteFormNoteTypeNoteBtn.style.display = 'none'
-//     noteFormBulletListContainer.style.display = 'none'
-//     noteFormTypeBulletListBtn.style.display = 'flex'
-//     noteFormContentContainer.style.display = 'flex'
-// })
+noteFormNoteTypeNoteBtn.addEventListener('click', () => {
+    noteFormNoteTypeNoteBtn.style.display = 'none'
+    noteFormBulletListContainer.style.display = 'none'
+    noteFormTypeBulletListBtn.style.display = 'flex'
+    noteFormContentContainer.style.display = 'flex'
+})
 
 
 noteFormSelectColor.addEventListener('change', () => {
@@ -120,6 +122,22 @@ const editNote = (creationDate) => {
     mainNotes.insertBefore(tmp, currentNoteObj)
     currentNoteObj.remove()
 }
+
+noteFormInputBulletItem.addEventListener('change', () => {
+    const inputValueTrim = noteFormInputBulletItem.value.trim()
+    if (inputValueTrim === '') {
+        noteFormInputBulletItem.value = ''
+        throw new Error('empty tag!')
+    }
+    const newBulletItem = new BulletListItem({
+        checkbox: false,
+        value: inputValueTrim
+    })
+    console.log(newBulletItem)
+    noteFormInputBulletItem.value = ''
+    newBulletItem.addBulletItemToArray()
+    newBulletItem.addBulletItemToList()
+})
 
 
 //TODO: clean tag code, event input

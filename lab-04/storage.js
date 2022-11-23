@@ -8,3 +8,9 @@ export default function localStorageToParsedNotes(){
 
         return parsedNotes
 }
+
+// addNoteToLocalStorage() {
+//     const parsedNotes = localStorageToParsedNotes()
+//     parsedNotes.push(this)
+//     localStorage.setItem('notes', JSON.stringify(parsedNotes))
+// }
