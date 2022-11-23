@@ -1,10 +1,11 @@
+import {generateTags} from './tags.js'
+import localStorageToParsedNotes from "./storage.js"
+
 const noteLightbox = document.querySelector('.noteLightbox')
 const noteLightboxButtons = document.querySelector('#noteLightboxButtons')
 const noteLightboxTitle = document.querySelector('#noteLightboxTitle')
 const noteLightboxContent = document.querySelector('#noteLightboxContent')
-const noteLightboxTags = document.querySelector('#noteLightboxTags')
-
-const mainNotes = document.querySelector('#notes')
+const noteLightboxTagList = document.querySelector('#noteLightboxTagList')
 
 export default class Note {
     constructor({ title, content, tags, color, creationDate }) {
@@ -16,13 +17,14 @@ export default class Note {
     }
 
     addNoteToLocalStorage() {
-        const localNotes = localStorage.getItem('notes')
-        if (localNotes === null) {
-            localStorage.setItem('notes', JSON.stringify([this]))
-            return
-        }
-        const parsedNotes = JSON.parse(localNotes)
+        const parsedNotes = localStorageToParsedNotes()
         parsedNotes.push(this)
+        localStorage.setItem('notes', JSON.stringify(parsedNotes))
+    }
+
+    updateNoteLocalStorage(index) {
+        const parsedNotes = localStorageToParsedNotes()
+        parsedNotes.splice(index, 1, this)
         localStorage.setItem('notes', JSON.stringify(parsedNotes))
     }
 
@@ -41,26 +43,23 @@ export default class Note {
         `
 
         newLocalNote.addEventListener('click', (clickedNote) => {
-            const localNotes = localStorage.getItem('notes')
-            if (localNotes === null) {
-                localStorage.setItem('notes', JSON.stringify([this]))
-                return
-            }
-            const parsedNotes = JSON.parse(localNotes)
+            const parsedNotes = localStorageToParsedNotes()
 
             noteLightbox.classList.toggle('active')
-            mainNotes.style.display = 'none'
+            mainContent.style.display = 'none'
             noteLightbox.id = clickedNote.target.id.slice(4)
             const noteLightboxObject = parsedNotes.find(e => e.creationDate == noteLightbox.id)
             noteLightboxTitle.value = noteLightboxObject.title
             noteLightboxContent.value = noteLightboxObject.content
-            noteLightboxTags.value = noteLightboxObject.tags
+            generateTags(noteLightboxObject.tags, noteLightboxTagList)
             noteLightboxButtons.style.color = `var(--${noteLightboxObject.color})`
             noteLightbox.style.border = `2px solid var(--${noteLightboxObject.color})`
             noteLightbox.style.boxShadow = `0 0 7px var(--${noteLightboxObject.color}),
                                                         0 0 10px var(--${noteLightboxObject.color}),
                                                         0 0 25px var(--${noteLightboxObject.color})`
+
         })
+
 
         return newLocalNote
     }

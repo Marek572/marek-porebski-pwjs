@@ -20,8 +20,22 @@ body{
     align-items: center;
 }
 
-#notes{
+#mainContent{
     width: 1080px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+#searchNotes{
+    margin: 0 55px 0 55px;
+    border-radius: 5px;
+    box-shadow: 0 0 7px var(--White),
+                0 0 10px var(--White),
+                0 0 25px var(--White);
+}
+
+#notes{
     margin: 0 auto;
     background: transparent;
     display: flex;
@@ -91,9 +105,13 @@ body{
     font-size: 1.2em;
 }
 
-/* #noteEdit{
-    margin: 0.7em 0.7em 0 0.7em;
-} */
+.noteIcon:hover, #noteLightboxClose:hover{
+    opacity: 0.7;
+}
+
+.noteIcon:active, #noteLightboxClose:active{
+    opacity: 0.5;
+}
 
 p{
     margin: 0;
@@ -122,7 +140,7 @@ p{
     text-align: right;
 }
 
-#noteForm{
+.noteForm{
     position: fixed;
     z-index: 100;
     width: 25vw;
@@ -137,13 +155,13 @@ p{
     display: none;
 }
 
-#noteForm.active{
+.noteForm.active{
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-input[type="text"], textarea, select, #tagList{
+input[type="text"], textarea, select, .tagList, .noteBulletListItems{
     color: var(--White);
     padding: 5px 0 5px 10px;
     font-family: 'Orbitron', sans-serif;
@@ -154,27 +172,60 @@ input[type="text"], textarea, select, #tagList{
     resize: none;
 }
 
-#newNoteTitle,#newNoteContent,#newNoteColor, #newNoteCancelAndSubmit, #newNoteTags{
+#newNoteChangeType, .noteTitle, .noteContent, .bulletList, .noteTags, .noteColor, #newNoteCancelAndSubmit, #editNoteCancelAndSave{
     display: flex;
     flex-direction: column;
     margin: 0 1.5em 0.5em 1.5em;
 }
 
-#inputContent{
+#newNoteChangeType{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: flex-end;
+}
+
+#newNoteTypeNoteBtn, #newNoteTypeBulletListBtn{
+    display: none;
+    position: absolute;
+}
+
+#newNoteTypeBulletListBtn{
+    display: flex;
+}
+
+#newNoteContent, #newNoteBulletList {
+    height: 40%;
+}
+
+#inputContent, #newNoteBulletListItems{
     padding: 10px;
     height: 20vh;
 }
 
-#tagList{
+#newNoteBulletList{
+    display: none;
+}
+
+.tagList{
     display: flex;
+    flex-wrap: wrap;
     padding: 0.3em;
 }
 
-#inputTag{
+#newNoteInputTag, #newNoteInputBulletItem, #editNoteInputTag{
     flex: 1;
     padding: 0.5em;
     outline: none;
     border: 0;
+}
+
+#newNoteInputBulletItem{
+    padding: 0;
+    width: 100%;
+    margin: 0 0 0.5em 0;
+    border-bottom: 1px solid var(--White);
+    border-radius: 0;
 }
 
 .tag{
@@ -186,34 +237,34 @@ input[type="text"], textarea, select, #tagList{
     border-radius: 5px;
 }
 
-#selectColor{
+.selectColor{
     border: 2px solid var(--Magenta);
     outline: none;
 }
 
-#selectColor option{
+.selectColor option{
     background: var(--Black);
 }
 
-#newNoteOptionCyan{
+.optionCyan{
     color: var(--Cyan);
 }
 
-#newNoteOptionYellow{
+.optionYellow{
     color: var(--Yellow);
 }
 
-#newNoteOptionMagenta{
+.optionMagenta{
     color: var(--Magenta);
 }
 
-#newNoteCancelAndSubmit{
+#newNoteCancelAndSubmit, #editNoteCancelAndSave{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-#newNoteCancelAndSubmit button{
+button{
     width: 100px;
     font-family: 'Orbitron', sans-serif;
     color: var(--White);
@@ -222,21 +273,21 @@ input[type="text"], textarea, select, #tagList{
     border-radius: 5px;
 }
 
-#newNoteCancel button{
+button:active{
+    color: var(--Black);
+    background: var(--White);
+}
+
+.cancelBtn{
     color: var(--White);
     background: var(--Black);
     border: 2px solid var(--White);
     opacity: 0.7;
 }
 
-#newNoteCancel button:focus{
+#newNoteCancel button:active, #editNoteCancel button:active{
     background: var(--White);
     color: var(--Black);
-}
-
-#newNoteSubmit button:focus{
-    color: var(--Black);
-    background: var(--White);
 }
 
 .noteLightbox{
@@ -268,7 +319,7 @@ input[type="text"], textarea, select, #tagList{
     justify-content: space-between;
 }
 
-.noteLightbox > #noteIconClose{
+.noteLightbox > #noteLightboxClose{
     font-size: 2em;
 }
 
@@ -287,4 +338,14 @@ input[type="text"], textarea, select, #tagList{
 #noteLightboxContent{
     padding: 10px;
     height: 100%;
+    margin: 0 0 0.7em 0;
+}
+
+#noteLightboxTagList{
+    padding: 10px;
+}
+
+#editContent{
+    padding: 10px;
+    height: 20vh;
 }

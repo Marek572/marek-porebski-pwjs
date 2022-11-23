@@ -18,63 +18,129 @@
     <title>Document</title>
   </head>
   <body>
-    <div id="noteForm">
+    <div id="newNoteForm" class="noteForm">
       <!-- <form> -->
-        <div id="newNoteTitle">
-          <label>Title</label>
-          <input type="text" id="inputTitle" placeholder="Input title here..." required />
+      <!-- <div id="newNoteChangeType">
+        <button id="newNoteTypeNoteBtn">Note</button>
+        <button id="newNoteTypeBulletListBtn">BulletList</button>
+      </div> -->
+      <div id="newNoteTitle" class="noteTitle">
+        <label>Title</label>
+        <input type="text" id="inputTitle" placeholder="Input title here..." required />
+      </div>
+      <div id="newNoteContent" class="noteContent">
+        <label>Content</label>
+        <textarea type="text" id="inputContent" placeholder="Input content here..." required></textarea>
+      </div>
+      <!-- <div id="newNoteBulletList" class="bulletList">
+        <label>TODO</label>
+        <div id="newNoteBulletListItems" class="noteBulletListItems">
+          <input type="text" id="newNoteInputBulletItem" placeholder="Input bullet item here..."/>
         </div>
-        <div id="newNoteContent">
-          <label>Content</label>
-          <textarea type="text" id="inputContent" placeholder="Input content here..." required></textarea>
+      </div> -->
+      <div id="newNoteTags" class="noteTags">
+        <label>Tags</label>
+        <div type="text" id="newNoteTagList" class="tagList">
+          <input type="text" id="newNoteInputTag" placeholder="max 3" />
         </div>
-        <!-- tagi do notatek max3 user sam -->
-        <div id="newNoteTags">
-          <label>Tags</label>
-          <div type="text" id="tagList">
-            <div class="tag">
-              <span>tag1</span>
-            </div>
-            <input type="text" id="inputTag">
-          </div>
+      </div>
+      <div id="newNoteColor" class="noteColor">
+        <label>Color</label>
+        <select id="selectColor" class="selectColor">
+          <option
+            id="newNoteOptionMagenta"
+            class="optionMagenta"
+            value="Magenta"
+          >
+            Magenta
+          </option>
+          <option id="newNoteOptionCyan" class="optionCyan" value="Cyan">
+            Cyan
+          </option>
+          <option id="newNoteOptionYellow" class="optionYellow" value="Yellow">
+            Yellow
+          </option>
+        </select>
+      </div>
+      <div id="newNoteCancelAndSubmit">
+        <div id="newNoteCancel">
+          <button id="newNoteCancelBtn" class="cancelBtn">Cancel</button>
         </div>
-        <div id="newNoteColor">
-          <label>Color</label>
-          <select id="selectColor">
-            <option id="newNoteOptionMagenta" value="Magenta">Magenta</option>
-            <option id="newNoteOptionCyan" value="Cyan">Cyan</option>
-            <option id="newNoteOptionYellow" value="Yellow">Yellow</option>
-          </select>
+        <div id="newNoteSubmit">
+          <!-- <input type="submit" id="submitBtn" value="Add note" /> -->
+          <button id="newNoteSubmitBtn" class="submitBtn">Add note</button>
         </div>
-        <div id="newNoteCancelAndSubmit">
-          <div id="newNoteCancel">
-            <button id="cancelBtn">Cancel</button>
-          </div>
-          <div id="newNoteSubmit">
-            <!-- <input type="submit" id="submitBtn" value="Add note" /> -->
-            <button id="submitBtn">Add note</button>
-          </div>
-        </div>
+      </div>
       <!-- </form> -->
     </div>
-    <!-- edycja notatek -->
+    <div class="noteEdit noteForm">
+      <div id="editNoteTitle" class="noteTitle">
+        <label>Title</label>
+        <input type="text" id="editTitle" required />
+      </div>
+      <div id="editNoteContent" class="noteContent">
+        <label>Content</label>
+        <textarea type="text" id="editContent" required></textarea>
+      </div>
+      <div id="editNoteTags" class="noteTags">
+        <label>Tags</label>
+        <div type="text" id="editNoteTagList" class="tagList">
+          <input type="text" id="editNoteInputTag" class="inputTags" />
+        </div>
+      </div>
+      <div id="editNoteColor" class="noteColor">
+        <label>Color</label>
+        <select id="editColor" class="selectColor">
+          <option
+            id="editNoteOptionMagenta"
+            class="optionMagenta"
+            value="Magenta"
+          >
+            Magenta
+          </option>
+          <option id="editNoteOptionCyan" class="optionCyan" value="Cyan">
+            Cyan
+          </option>
+          <option id="editNoteOptionYellow" class="optionYellow" value="Yellow">
+            Yellow
+          </option>
+        </select>
+      </div>
+      <div id="editNoteCancelAndSave">
+        <div id="editNoteCancel">
+          <button id="editNoteCancelBtn" class="cancelBtn">Cancel</button>
+        </div>
+        <div id="editNoteSave">
+          <button id="editSaveBtn" class="submitBtn">Save</button>
+        </div>
+      </div>
+    </div>
     <div class="noteLightbox">
       <div id="noteLightboxButtons">
         <span>
           <i id="noteLightboxPin" class="fa-regular fa-thumbtack noteIcon"></i>
-          <i id="noteLightboxEdit" class="fa-regular fa-pen-to-square noteIcon"></i>
-          <i id="noteLightboxThrash" class="fa-regular fa-trash-can noteIcon"></i>
+          <i
+            id="noteLightboxEdit"
+            class="fa-regular fa-pen-to-square noteIcon"
+          ></i>
+          <i
+            id="noteLightboxThrash"
+            class="fa-regular fa-trash-can noteIcon"
+          ></i>
         </span>
         <i id="noteLightboxClose" class="fa-regular fa-x"></i>
       </div>
-        <div id="noteLightboxContainer">
-          <input type="text" id="noteLightboxTitle" disabled />
-          <textarea type="text" id="noteLightboxContent" disabled ></textarea>
-          <input type="text" id="noteLightboxTags" disabled ></textarea> <!-- TODO: generateTags -->
-        </div>
+      <div id="noteLightboxContainer">
+        <input type="text" id="noteLightboxTitle" disabled />
+        <textarea type="text" id="noteLightboxContent" disabled></textarea>
+        <div type="text" id="noteLightboxTagList" class="tagList"></div>
+      </div>
     </div>
-    <main id="notes">
-      <div id="newNoteBtn" ><i class="fa-solid fa-plus"></i></div>
+    <main id="mainContent">
+      <input type="text" id="searchNotes" placeholder="Search..." />
+      <section id="notes">
+        <div id="newNoteBtn"><i class="fa-solid fa-plus"></i></div>
+      </section>
     </main>
     <script type="module" src="script.js"></script>
   </body>
