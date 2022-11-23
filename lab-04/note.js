@@ -1,5 +1,6 @@
-import {generateTags} from './tags.js'
-import localStorageToParsedNotes from "./storage.js"
+import { generateTags } from './tags.js'
+import { localStorageToParsedNotes } from "./storage.js"
+import { BulletListItem } from './bulletListItem.js'
 
 const noteLightbox = document.querySelector('.noteLightbox')
 const noteLightboxButtons = document.querySelector('#noteLightboxButtons')
@@ -38,11 +39,12 @@ export default class Note {
             newLocalNote.classList.add(`noteColor${newLocalNoteColor}`)
 
         newLocalNote.innerHTML = `
-            <p id="noteTags">${this.tags}</p>
-            <p id="noteTitle">${this.title}</p>
-            <p id="noteDate">${(new Date(this.creationDate)).toLocaleDateString()}</p>
+        <p id="noteTags">${this.tags}</p>
+        <p id="noteTitle">${this.title}</p>
+        <p id="noteDate">${(new Date(this.creationDate)).toLocaleDateString()}</p>
         `
 
+        //TODO:change if bulletList
         newLocalNote.addEventListener('click', (clickedNote) => {
             const parsedNotes = localStorageToParsedNotes()
 
@@ -51,7 +53,20 @@ export default class Note {
             noteLightbox.id = clickedNote.target.id.slice(4)
             const noteLightboxObject = parsedNotes.find(e => e.creationDate == noteLightbox.id)
             noteLightboxTitle.value = noteLightboxObject.title
-            noteLightboxContent.value = noteLightboxObject.content
+            if (noteLightboxObject.content)
+                noteLightboxContent.value = noteLightboxObject.content
+            console.log(noteLightboxObject.bulletList)
+            //TODO: ogarnac printowanie bulletItemow z bulletListy
+            // if (noteLightboxObject.bulletList) {
+            //     noteLightboxObject.bulletList.forEach((bulletItem) => {
+            //         const newBulletItem = new BulletListItem({
+            //             checkbox: bulletItem[0],
+            //             value: bulletItem[1]
+            //         })
+            //         console.log(newBulletItem)
+            //         // newBulletItem.addBulletItemToList(noteLightboxContent)
+            //     })
+            // }
             generateTags(noteLightboxObject.tags, noteLightboxTagList)
             noteLightboxButtons.style.color = `var(--${noteLightboxObject.color})`
             noteLightbox.style.border = `2px solid var(--${noteLightboxObject.color})`

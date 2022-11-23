@@ -1,7 +1,9 @@
-import localStorageToParsedNotes from "./storage.js"
+import {localStorageToParsedNotes} from "./storage.js"
 let parsedNotes = localStorageToParsedNotes()
 
-import {noteEditTags, generateTags} from "./tags.js"
+import { noteEditTags, generateTags } from "./tags.js"
+
+const noteFormContent = document.querySelector('#inputContent')
 
 const newNoteBtn = document.querySelector('#newNoteBtn')
 const noteEdit = document.querySelector('.noteEdit')
@@ -11,6 +13,10 @@ const noteEditTagList = document.querySelector('#editNoteTagList')
 const noteEditInputTag = document.querySelector('#editNoteInputTag')
 const noteEditSelectColor = document.querySelector('#editColor')
 
+const noteFormNoteTypeNoteBtn = document.querySelector('#newNoteTypeNoteBtn')
+const noteFormTypeBulletListBtn = document.querySelector('#newNoteTypeBulletListBtn')
+const noteFormContentContainer = document.querySelector('#newNoteContent')
+const noteFormBulletListContainer = document.querySelector('#newNoteBulletList')
 
 export const addEventNewNoteBtn = () => {
     newNoteBtn.addEventListener('click', () => {
@@ -19,7 +25,6 @@ export const addEventNewNoteBtn = () => {
     })
 }
 
-//TODO: on new note error
 export const addEventsLightboxBtns = () => {
     let noteLightbox = document.querySelector('.noteLightbox')
     const noteLightboxPin = document.querySelector('#noteLightboxPin')
@@ -29,6 +34,8 @@ export const addEventsLightboxBtns = () => {
 
     noteLightboxPin.addEventListener('click', () => {
         parsedNotes = localStorageToParsedNotes()
+        const noteLightboxObject = parsedNotes.find(e => e.creationDate == noteLightbox.id)
+        const noteLightboxObjectIndex = parsedNotes.indexOf(noteLightboxObject)
         parsedNotes.splice(noteLightboxObjectIndex, 1)
         parsedNotes.splice(0, 0, noteLightboxObject)
         localStorage.setItem('notes', JSON.stringify(parsedNotes))
@@ -76,4 +83,26 @@ export const addEventsLightboxBtns = () => {
     })
 }
 
-export default { newNoteBtn, addEventsLightboxBtns }
+export const switchNoteTypeBtns = () => {
+    noteFormTypeBulletListBtn.addEventListener('click', () => {
+        noteFormTypeBulletListBtn.style.display = 'none'
+        noteFormContent.value = ''
+        noteFormContentContainer.style.display = 'none'
+        noteFormNoteTypeNoteBtn.style.display = 'flex'
+        noteFormBulletListContainer.style.display = 'flex'
+    })
+
+    noteFormNoteTypeNoteBtn.addEventListener('click', () => {
+        noteFormNoteTypeNoteBtn.style.display = 'none'
+        const noteFormBulletListItems = document.querySelector('#newNoteBulletListItems')
+        const allBulletItems = noteFormBulletListItems.querySelectorAll('.bulletItem')
+        allBulletItems.forEach((bulletItem) => {
+            bulletItem.remove()
+        })
+        noteFormBulletListContainer.style.display = 'none'
+        noteFormTypeBulletListBtn.style.display = 'flex'
+        noteFormContentContainer.style.display = 'flex'
+    })
+}
+
+export default {addEventNewNoteBtn, addEventsLightboxBtns, switchNoteTypeBtns}

@@ -1,3 +1,5 @@
+//FIXME: refactor?
+
 export let noteFormTags = []
 export let noteEditTags = []
 

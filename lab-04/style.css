@@ -172,6 +172,10 @@ input[type="text"], textarea, select, .tagList, .noteBulletListItems{
     resize: none;
 }
 
+.noteBulletListItems{
+    overflow-y: auto;
+}
+
 #newNoteChangeType, .noteTitle, .noteContent, .bulletList, .noteTags, .noteColor, #newNoteCancelAndSubmit, #editNoteCancelAndSave{
     display: flex;
     flex-direction: column;
@@ -199,8 +203,12 @@ input[type="text"], textarea, select, .tagList, .noteBulletListItems{
 }
 
 #inputContent, #newNoteBulletListItems{
-    padding: 10px;
+    padding: 5px 10px 10px 10px;
     height: 20vh;
+}
+
+#newNoteBulletListItems{
+    padding: 0 10px 10px 10px;
 }
 
 #newNoteBulletList{
@@ -221,11 +229,14 @@ input[type="text"], textarea, select, .tagList, .noteBulletListItems{
 }
 
 #newNoteInputBulletItem{
-    padding: 0;
+    padding: 5px 0 0 0;
     width: 100%;
     margin: 0 0 0.5em 0;
     border-bottom: 1px solid var(--White);
     border-radius: 0;
+    position: sticky;
+    top: 0;
+    background-color: var(--Black);
 }
 
 .tag{

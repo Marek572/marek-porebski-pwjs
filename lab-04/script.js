@@ -1,12 +1,16 @@
-import localStorageToParsedNotes from "./storage.js"
+import { localStorageToParsedNotes, generateMain } from "./storage.js"
 let parsedNotes = localStorageToParsedNotes()
 
 import Note from "./note.js"
-import BulletListItem from "./bulletListItem.js"
+import BulletList from "./bulletList.js"
+import { BulletListItem, noteFormBulletList } from "./bulletListItem.js"
 import searchBar from "./searchNotes.js"
-import { addEventNewNoteBtn, addEventsLightboxBtns } from "./buttons.js"
+import { addEventNewNoteBtn, addEventsLightboxBtns, switchNoteTypeBtns } from "./buttons.js"
 import { noteFormTags, noteEditTags, generateTags, clearTags } from "./tags.js"
 
+
+const noteFormNoteTypeNoteBtn = document.querySelector('#newNoteTypeNoteBtn')
+const noteFormTypeBulletListBtn = document.querySelector('#newNoteTypeBulletListBtn')
 const mainContent = document.querySelector('#mainContent')
 const mainNotes = document.querySelector('#notes')
 const tagLists = document.querySelectorAll('.tagList')
@@ -14,13 +18,10 @@ const cancelBtns = document.querySelectorAll('.cancelBtn')
 const submitBtns = document.querySelectorAll('.submitBtn')
 
 const newNoteForm = document.querySelector('#newNoteForm')
-const noteFormNoteTypeNoteBtn = document.querySelector('#newNoteTypeNoteBtn')
-const noteFormTypeBulletListBtn = document.querySelector('#newNoteTypeBulletListBtn')
 const noteFormTitle = document.querySelector('#inputTitle')
-const noteFormContentContainer = document.querySelector('#newNoteContent')
 const noteFormContent = document.querySelector('#inputContent')
-const noteFormBulletListContainer = document.querySelector('#newNoteBulletList')
 const noteFormInputBulletItem = document.querySelector('#newNoteInputBulletItem')
+const noteFormBulletListItems = document.querySelector('#newNoteBulletListItems')
 const noteFormTagList = document.querySelector('#newNoteTagList')
 const noteFormInputTag = document.querySelector('#newNoteInputTag')
 const noteFormSelectColor = document.querySelector('#selectColor')
@@ -36,39 +37,11 @@ const noteEditSelectColor = document.querySelector('#editColor')
 const noteEditCancelBtn = document.querySelector('#editNoteCancelBtn')
 const noteEditSaveBtn = document.querySelector('#editSaveBtn')
 
-
+generateMain(parsedNotes)
 addEventNewNoteBtn()
 searchBar(parsedNotes)
 addEventsLightboxBtns()
-
-if (parsedNotes) {
-    parsedNotes.forEach((note) => {
-        const tmp = new Note({
-            title: note.title,
-            content: note.content,
-            tags: note.tags,
-            color: note.color,
-            creationDate: note.creationDate
-        })
-
-        mainNotes.appendChild(tmp.addNoteToMain())
-    })
-}
-
-//TODO: on cancel click -> typeNote
-noteFormTypeBulletListBtn.addEventListener('click', () => {
-    noteFormTypeBulletListBtn.style.display = 'none'
-    noteFormContentContainer.style.display = 'none'
-    noteFormNoteTypeNoteBtn.style.display = 'flex'
-    noteFormBulletListContainer.style.display = 'flex'
-})
-
-noteFormNoteTypeNoteBtn.addEventListener('click', () => {
-    noteFormNoteTypeNoteBtn.style.display = 'none'
-    noteFormBulletListContainer.style.display = 'none'
-    noteFormTypeBulletListBtn.style.display = 'flex'
-    noteFormContentContainer.style.display = 'flex'
-})
+switchNoteTypeBtns()
 
 
 noteFormSelectColor.addEventListener('change', () => {
@@ -94,6 +67,27 @@ const createNote = () => {
     const tmp = newNote.addNoteToMain()
     mainNotes.appendChild(tmp)
     console.log(parsedNotes)
+}
+
+const createBulletList = () => {
+
+    const title = document.querySelector('#inputTitle').value
+    const bulletList = noteFormBulletList
+    const color = document.querySelector('#selectColor').value
+    const tags = noteFormTags
+
+    const newBulletList = new BulletList({
+        title,
+        bulletList,
+        tags,
+        color
+    })
+
+    newBulletList.addNoteToLocalStorage()
+    parsedNotes = localStorageToParsedNotes()
+    const tmp = newBulletList.addNoteToMain()
+    mainNotes.appendChild(tmp)
+    console.log(newBulletList)
 }
 
 const editNote = (creationDate) => {
@@ -133,14 +127,12 @@ noteFormInputBulletItem.addEventListener('change', () => {
         checkbox: false,
         value: inputValueTrim
     })
-    console.log(newBulletItem)
     noteFormInputBulletItem.value = ''
     newBulletItem.addBulletItemToArray()
-    newBulletItem.addBulletItemToList()
+    newBulletItem.addBulletItemToList(noteFormBulletListItems)
 })
 
 
-//TODO: clean tag code, event input
 tagLists.forEach((tagList) => {
     tagList.addEventListener('change', () => {
         if (tagList.id === 'newNoteTagList') {
@@ -184,18 +176,38 @@ tagLists.forEach((tagList) => {
 submitBtns.forEach((submitBtn) => {
     submitBtn.addEventListener('click', (e) => {
         if (e.target === noteFormSubmitBtn) {
-            if (noteFormTitle.value && noteFormContent.value) {
-                createNote()
-                clearTags(noteFormTagList)
-                newNoteForm.classList.toggle('active')
-                noteFormTitle.value = ''
-                noteFormContent.value = ''
-                noteFormSelectColor.value = 'Magenta'
-                noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
-                mainContent.style.display = 'flex'
-            } else {
-                alert('fill the gaps!')
-                throw new Error('Fill the gaps!')
+            if (noteFormNoteTypeNoteBtn.style.display === 'none') {
+                if (noteFormTitle.value && noteFormContent.value) {
+                    createNote()
+                    clearTags(noteFormTagList)
+                    newNoteForm.classList.toggle('active')
+                    noteFormTitle.value = ''
+                    noteFormContent.value = ''
+                    noteFormSelectColor.value = 'Magenta'
+                    noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
+                    mainContent.style.display = 'flex'
+                } else {
+                    alert('fill the gaps!')
+                    throw new Error('Fill the gaps!')
+                }
+            }
+            if (noteFormTypeBulletListBtn.style.display = 'none') {
+                if (noteFormTitle.value && noteFormBulletList) {
+                    createBulletList()
+                    clearTags(noteFormTagList)
+                    newNoteForm.classList.toggle('active')
+                    noteFormTitle.value = ''
+                    const allBulletItems = noteFormBulletListItems.querySelectorAll('.bulletItem')
+                    allBulletItems.forEach((bulletItem) => {
+                        bulletItem.remove()
+                    })
+                    noteFormSelectColor.value = 'Magenta'
+                    noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
+                    mainContent.style.display = 'flex'
+                } else {
+                    alert('fill the gaps!')
+                    throw new Error('Fill the gaps!')
+                }
             }
         }
         if (e.target === noteEditSaveBtn) {
@@ -219,9 +231,14 @@ submitBtns.forEach((submitBtn) => {
 cancelBtns.forEach((cancelBtn) => {
     cancelBtn.addEventListener('click', (e) => {
         if (e.target === noteFormCancelBtn) {
+            noteFormNoteTypeNoteBtn.click()
             newNoteForm.classList.toggle('active')
             noteFormTitle.value = ''
             noteFormContent.value = ''
+            const allBulletItems = noteFormBulletListItems.querySelectorAll('.bulletItem')
+            allBulletItems.forEach((bulletItem) => {
+                bulletItem.remove()
+            })
             clearTags(noteFormTagList)
             noteFormSelectColor.value = 'Magenta'
             noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
