@@ -3,7 +3,8 @@ let parsedNotes = localStorageToParsedNotes()
 
 import Note from "./note.js"
 import BulletList from "./bulletList.js"
-import { BulletListItem, noteFormBulletList } from "./bulletListItem.js"
+import { BulletListItem, noteFormBulletList, clearBulletListArray} from "./bulletListItem.js"
+
 import searchBar from "./searchNotes.js"
 import { addEventNewNoteBtn, addEventsLightboxBtns, switchNoteTypeBtns } from "./buttons.js"
 import { noteFormTags, noteEditTags, generateTags, clearTags } from "./tags.js"
@@ -176,34 +177,39 @@ tagLists.forEach((tagList) => {
 submitBtns.forEach((submitBtn) => {
     submitBtn.addEventListener('click', (e) => {
         if (e.target === noteFormSubmitBtn) {
-            if (noteFormNoteTypeNoteBtn.style.display === 'none') {
+            if (noteFormNoteTypeNoteBtn.style.display !== 'flex') {
                 if (noteFormTitle.value && noteFormContent.value) {
                     createNote()
                     clearTags(noteFormTagList)
                     newNoteForm.classList.toggle('active')
+                    noteFormNoteTypeNoteBtn.click()
                     noteFormTitle.value = ''
                     noteFormContent.value = ''
                     noteFormSelectColor.value = 'Magenta'
                     noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
                     mainContent.style.display = 'flex'
+                    return
                 } else {
                     alert('fill the gaps!')
                     throw new Error('Fill the gaps!')
                 }
             }
-            if (noteFormTypeBulletListBtn.style.display = 'none') {
-                if (noteFormTitle.value && noteFormBulletList) {
+            if (noteFormTypeBulletListBtn.style.display !== 'flex') {
+                if (noteFormTitle.value && noteFormBulletList.length>0) {
                     createBulletList()
                     clearTags(noteFormTagList)
                     newNoteForm.classList.toggle('active')
+                    noteFormNoteTypeNoteBtn.click()
                     noteFormTitle.value = ''
                     const allBulletItems = noteFormBulletListItems.querySelectorAll('.bulletItem')
                     allBulletItems.forEach((bulletItem) => {
                         bulletItem.remove()
                     })
+                    clearBulletListArray()
                     noteFormSelectColor.value = 'Magenta'
                     noteFormSelectColor.style.border = `2px solid var(--${noteFormSelectColor.value})`
                     mainContent.style.display = 'flex'
+                    return
                 } else {
                     alert('fill the gaps!')
                     throw new Error('Fill the gaps!')

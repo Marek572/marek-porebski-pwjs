@@ -5,6 +5,7 @@
     --Magenta: #CE44FF;
     --Yellow: #f2f103;
     --Red: #FF2C55;
+    overflow: overlay;
 }
 
 body{
@@ -28,7 +29,7 @@ body{
 }
 
 #searchNotes{
-    margin: 0 55px 0 55px;
+    margin: 0.5em 55px 0 55px;
     border-radius: 5px;
     box-shadow: 0 0 7px var(--White),
                 0 0 10px var(--White),

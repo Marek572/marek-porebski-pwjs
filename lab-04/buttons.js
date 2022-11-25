@@ -90,6 +90,8 @@ export const switchNoteTypeBtns = () => {
         noteFormContentContainer.style.display = 'none'
         noteFormNoteTypeNoteBtn.style.display = 'flex'
         noteFormBulletListContainer.style.display = 'flex'
+        console.log('bulletList '+noteFormTypeBulletListBtn.style.display)
+        console.log('note '+noteFormNoteTypeNoteBtn.style.display)
     })
 
     noteFormNoteTypeNoteBtn.addEventListener('click', () => {
@@ -102,6 +104,8 @@ export const switchNoteTypeBtns = () => {
         noteFormBulletListContainer.style.display = 'none'
         noteFormTypeBulletListBtn.style.display = 'flex'
         noteFormContentContainer.style.display = 'flex'
+        console.log('bulletList '+noteFormTypeBulletListBtn.style.display)
+        console.log('note '+noteFormNoteTypeNoteBtn.style.display)
     })
 }
 

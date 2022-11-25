@@ -43,4 +43,8 @@ export class BulletListItem {
 
 }
 
-export default {BulletListItem, noteFormBulletList}
+export const clearBulletListArray = () => {
+    noteFormBulletList = []
+}
+
+export default {BulletListItem, noteFormBulletList, clearBulletListArray}

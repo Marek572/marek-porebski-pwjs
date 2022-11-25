@@ -1,3 +1,4 @@
+//case sensitive!
 export default function searchBar(parsedNotes){
     const searchNotesInput = document.querySelector('#searchNotes')
 
@@ -15,9 +16,11 @@ export default function searchBar(parsedNotes){
             })
             parsedNotes.forEach((note) => {
                 if(note.title.includes(searchNotesInput.value) ||
-                    note.content.includes(searchNotesInput.value) ||
+                    (note.content && note.content.includes(searchNotesInput.value)) ||
+                    (note.bulletList && Object.entries(note.bulletList).some(e => e.includes(searchNotesInput.value))) ||
                     note.tags.some(e => e.includes(searchNotesInput.value)) ||
                     note.color.includes(searchNotesInput.value)){
+
                     const searchedNote = document.querySelector(`#note${note.creationDate}`)
                     searchedNote.style.display = 'flex'
                 }
