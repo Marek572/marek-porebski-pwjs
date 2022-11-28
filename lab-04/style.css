@@ -162,7 +162,7 @@ p{
     flex-direction: column;
 }
 
-input[type="text"], textarea, select, .tagList, .noteBulletListItems{
+input[type="text"], textarea, select, .tagList, .noteBulletListItems, #noteLightboxContent{
     color: var(--White);
     padding: 5px 0 5px 10px;
     font-family: 'Orbitron', sans-serif;
@@ -212,7 +212,7 @@ input[type="text"], textarea, select, .tagList, .noteBulletListItems{
     padding: 0 10px 10px 10px;
 }
 
-#newNoteBulletList{
+#newNoteBulletList, #editNoteBulletList{
     display: none;
 }
 
@@ -222,19 +222,19 @@ input[type="text"], textarea, select, .tagList, .noteBulletListItems{
     padding: 0.3em;
 }
 
-#newNoteInputTag, #newNoteInputBulletItem, #editNoteInputTag{
+#newNoteInputTag, #newNoteInputBulletItem, #editNoteInputTag, #editNoteInputBulletItem{
     flex: 1;
     padding: 0.5em;
     outline: none;
     border: 0;
+    border-bottom: 1px solid var(--White);
+    border-radius: 0;
 }
 
-#newNoteInputBulletItem{
+#newNoteInputBulletItem, #editNoteInputBulletItem{
     padding: 5px 0 0 0;
     width: 100%;
     margin: 0 0 0.5em 0;
-    border-bottom: 1px solid var(--White);
-    border-radius: 0;
     position: sticky;
     top: 0;
     background-color: var(--Black);
@@ -357,7 +357,7 @@ button:active{
     padding: 10px;
 }
 
-#editContent{
+#editContent, #editNoteBulletListItems{
     padding: 10px;
     height: 20vh;
 }

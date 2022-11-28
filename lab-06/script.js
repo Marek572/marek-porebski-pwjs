@@ -1,46 +1,37 @@
+import { accelerationChange, moveBall } from "./ball.js"
+import { animateHole } from "./hole.js"
 const hole = document.querySelector('#hole')
 const ball = document.querySelector('#ball')
 
-const windowWidth = window.innerWidth-50
-const windowHeight = window.innerHeight-50
+const radiusBall = 50
+const radiusHole = 70
 
-let holeXPosition = 0
-let holeYPosition = 0
-let holeXSpeed = 8
-let holeYSpeed = 8
+let pauseGame = false
 
-const animateHole = () => {
-    if(holeXPosition >= windowWidth || holeXPosition < 0)
-        holeXSpeed = holeXSpeed*(-1)
-    if(holeYPosition >= windowHeight || holeYPosition < 0)
-        holeYSpeed = holeYSpeed*(-1)
-    holeXPosition += holeXSpeed
-    holeYPosition += holeYSpeed
-    hole.style.left = `${holeXPosition}px`
-    hole.style.top = `${holeYPosition}px`
-    requestAnimationFrame(animateHole)
+let winTriangleX
+let winTriangleY
+let winTriangleZ = radiusBall + radiusHole
+const winCheck = () => {
+    let xBallPos = parseInt(ball.style.left.slice(0, -2) + 50)
+    let yBallPos = parseInt(ball.style.top.slice(0, -2) + 50)
+    let xHolePos = parseInt(hole.style.left.slice(0, -2) + 70)
+    let yHolePos = parseInt(hole.style.top.slice(0, -2) + 70)
+    winTriangleX = xBallPos - xHolePos
+    winTriangleY = yBallPos - yHolePos
+    let ifStatement = winTriangleX ** 2 + winTriangleY ** 2 < (winTriangleZ - (2*radiusBall)) ** 2
+    if (ifStatement) {
+        pauseGame = true
+        alert('wygrales!')
+    }
 }
-requestAnimationFrame(animateHole)
 
-
-let ballAlphaPosition = 0
-let ballBetaPosition = 90
-let ballAlphaDiff
-let ballBetaDiff
-let ballXSpeed = 0
-let ballYSpeed = 0
-
-window.addEventListener('deviceorientation', (cb) =>{
-    ballAlphaDiff = ballAlphaPosition + cb.alpha
-    ballBetaDiff = cb.beta - ballBetaPosition
-    console.log(ballBetaDiff)
-    if(ballAlphaDiff > 0)
-        ball.style.left = `${ballAlphaDiff}px`
-    if(ballBetaDiff > 0)
-        ball.style.top = `${ballBetaDiff}px`
-})
-
-// requestAnimationFrame(animateBall)
-
-console.log(ballAlphaPosition)
-console.log(ballBetaPosition)
+const gameMaster = () => {
+    if (pauseGame !== true) {
+        animateHole()
+        window.addEventListener('deviceorientation', accelerationChange)
+        moveBall()
+        winCheck()
+    }
+    requestAnimationFrame(gameMaster)
+}
+gameMaster()

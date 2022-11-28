@@ -82,10 +82,16 @@
         <label>Content</label>
         <textarea type="text" id="editContent" required></textarea>
       </div>
+      <div id="editNoteBulletList" class="bulletList">
+        <label>TODO</label>
+        <div id="editNoteBulletListItems" class="noteBulletListItems">
+          <input type="text" id="editNoteInputBulletItem" placeholder="Input bullet item here..."/>
+        </div>
+      </div>
       <div id="editNoteTags" class="noteTags">
         <label>Tags</label>
         <div type="text" id="editNoteTagList" class="tagList">
-          <input type="text" id="editNoteInputTag" class="inputTags" />
+          <input type="text" id="editNoteInputTag" class="inputTags" placeholder="max 3" />
         </div>
       </div>
       <div id="editNoteColor" class="noteColor">
@@ -132,7 +138,7 @@
       </div>
       <div id="noteLightboxContainer">
         <input type="text" id="noteLightboxTitle" disabled />
-        <textarea type="text" id="noteLightboxContent" disabled></textarea>
+        <div type="text" id="noteLightboxContent" disabled></div>
         <div type="text" id="noteLightboxTagList" class="tagList"></div>
       </div>
     </div>
