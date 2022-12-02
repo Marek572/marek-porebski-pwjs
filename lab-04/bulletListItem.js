@@ -1,6 +1,7 @@
 export let noteFormBulletList = []
 export let noteEditBulletListArray = []
 
+//TODO: usuwanie bulletItemow, bulletItem label przy checkbox checked przekrleslony
 export class BulletListItem {
 
     constructor({ checkbox, value }) {

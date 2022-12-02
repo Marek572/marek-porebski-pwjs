@@ -19,8 +19,8 @@ const ballInfo = () => {
 }
 
 export const accelerationChange = (e) => {
-    ballXVelocity = e.gamma/20
-    ballYVelocity = e.beta/20
+    ballXVelocity = e.gamma/10
+    ballYVelocity = e.beta/10
 }
 
 export const moveBall = () => {
