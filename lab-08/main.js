@@ -1,29 +1,49 @@
-import Ball from "./ball.js";
+import { generateBalls } from "./functions.js";
+
 const canvas = document.querySelector('#ballsContainer');
 const ctx = canvas.getContext('2d');
 
-const canvasWidhth = canvas.width
-const canvasHigh = canvas.height
-let i = 0;
+const canvasWidhth = canvas.width;
+const canvasHeight = canvas.height;
 
+let ballArray = generateBalls(30)
+
+let stopDraw;
 const draw = () => {
-    ctx.clearRect(0, 0, canvasWidhth, canvasHigh);
+    ctx.clearRect(0, 0, canvasWidhth, canvasHeight);
 
-    const newBall = new Ball({
-        radius: 10,
-    });
+    for (let i = 0; i < ballArray.length; i++) {
+        for (let j = 1; j < ballArray.length; j++) {
+            ballArray[i].drawBall();
+            ballArray[i].moveBall();
+            ballArray[i].checkEdges();
+            if (ballArray[i] !== ballArray[j])
+                ballArray[j].connectBall(ballArray[i]);
+        }
+    }
 
-    ctx.beginPath();
-    const x = 50 + i;
-    const y = 50 + i;
-    const startAngle = 0;
-    const endAngle = 2 * Math.PI;
-
-    ctx.arc(x, y, newBall.radius, startAngle, endAngle);
-    ctx.stroke();
-
-    i++
-    requestAnimationFrame(draw)
+    stopDraw = requestAnimationFrame(draw);
 }
-
 draw();
+
+const resetBtn = document.querySelector('#resetBtn');
+const stopSwitchBtn = document.querySelector('#stopSwitchBtn');
+let stopSwitch = false;
+
+stopSwitchBtn.addEventListener('click', () => {
+    stopSwitchBtn.classList.toggle('btnActive');
+    if (stopSwitch === false) {
+        stopSwitch = true;
+        stopSwitchBtn.innerHTML = 'Start';
+        cancelAnimationFrame(stopDraw);
+    } else if (stopSwitch === true) {
+        stopSwitch = false;
+        stopSwitchBtn.innerHTML = 'Stop';
+        draw();
+    }
+});
+
+resetBtn.addEventListener('click', () => {
+    ballArray = [];
+    ballArray = generateBalls(30);
+});

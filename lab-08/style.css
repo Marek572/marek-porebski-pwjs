@@ -1,11 +1,16 @@
 :root{
     font-size: 20px;
+    --white: rgb(238, 239, 241);
+    --lightgreen: rgb(118, 200, 66);
+    --green: rgb(101, 130, 76);
+    --grey: rgb(40, 40, 32);
+    --black: rgb(16, 14, 15);
 }
 
 body{
     margin: 0;
     padding: 0;
-    background: darkcyan;
+    background: var(--grey);
 }
 
 main{
@@ -13,35 +18,54 @@ main{
     padding: 0;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 }
 
 nav{
-    width: 100%;
-    /* min-height: 8vh; */
+    margin: 0 25px 0 0;
+    height: 625px;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
+}
+
+#inputContainer{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-evenly;
 }
 
 button{
     width: 100px;
     height: 50px;
-    color: lightgreen;
+    color: var(--lightgreen);
     appearance: none;
     background: none;
-    border: 1px solid lightgreen;
+    border: 1px solid var(--lightgreen);
     border-radius: 5px;
+    transition: 0.4s;
 }
 
-button#start, button#restart{
-    color: darkcyan;
-    background: lightgreen;
+button:active{
+    transition: 0.1s;
+    scale: 0.9;
+}
+
+button:hover, .btnActive{
+    color: var(--grey);
+    background: var(--lightgreen);
     border: none;
 }
 
+.btnActive:hover{
+    color: var(--lightgreen);
+    appearance: none;
+    background: none;
+    border: 1px solid var(--lightgreen);
+}
+
 #ballsContainer{
-    border: 1px solid lightgreen;
+    border: 1px solid var(--lightgreen);
 }
