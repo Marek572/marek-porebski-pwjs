@@ -1,4 +1,4 @@
-import { generateBalls } from "./functions.js";
+import { generateBalls, inputValueChange } from "./functions.js";
 
 const canvas = document.querySelector('#ballsContainer');
 const ctx = canvas.getContext('2d');
@@ -47,3 +47,11 @@ resetBtn.addEventListener('click', () => {
     ballArray = [];
     ballArray = generateBalls(30);
 });
+
+const inputQuantity = document.querySelector('#inputQuantity');
+const quantityValue = document.querySelector('#ballQuantityValue');
+inputValueChange(inputQuantity, quantityValue);
+
+const inputConnectDist = document.querySelector('#inputConnectDist');
+const connectDistValue = document.querySelector('#ballConnectDistValue');
+inputValueChange(inputConnectDist, connectDistValue);

@@ -21,8 +21,8 @@ export default class Ball {
         this.xPosition = rnd(canvasWidhth - 10, 10);
         this.yPosition = rnd(canvasHeight - 10, 10);
         this.radius = 10;
-        this.xSpeed = rnd(1, -1) / 10;
-        this.ySpeed = rnd(1, -1) / 10;
+        this.xSpeed = rnd(1, -1) / 8;
+        this.ySpeed = rnd(1, -1) / 8;
     }
 
     moveBall = () => {

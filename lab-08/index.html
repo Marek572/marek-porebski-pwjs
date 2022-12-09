@@ -16,9 +16,20 @@
           <button id="resetBtn" class="btnActive">Restart</button>
         </div>
         <div id="inputContainer">
-          <input type="range" id="ballNumber">
-          <input type="range" id="ballRadius">
-          <input type="range" id="ballSpeed">
+          <div id="quantityContainer">
+            <div id="quantityInfo">
+              <label for="ballQuantity">Quantity:</label>
+              <output id="ballQuantityValue" for="ballQuantity">1</output>
+            </div>
+            <input type="range" value="1" min="1" max="100" id="inputQuantity" name="ballQuantity" class="range">
+          </div>
+          <div id="connectDistContainer">
+            <div id="connectDistInfo">
+              <label for="ballConnectDist">Connect distance:</label>
+              <output id="ballConnectDistValue" for="ballConnectDist">0</output>
+            </div>
+            <input type="range" value="0" min="0" max="100" id="inputConnectDist" name="ballConnectDist" class="range">
+          </div>
         </div>
       </nav>
       <canvas id="ballsContainer" width="1100px" height="625px"> </canvas>

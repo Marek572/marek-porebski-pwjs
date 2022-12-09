@@ -1,71 +1,108 @@
-:root{
-    font-size: 20px;
-    --white: rgb(238, 239, 241);
-    --lightgreen: rgb(118, 200, 66);
-    --green: rgb(101, 130, 76);
-    --grey: rgb(40, 40, 32);
-    --black: rgb(16, 14, 15);
+:root {
+  font-size: 20px;
+  color: var(--white);
+  --white: rgb(238, 239, 241);
+  --lightgreen: rgb(118, 200, 66);
+  --green: rgb(101, 130, 76);
+  --grey: rgb(40, 40, 32);
+  --black: rgb(16, 14, 15);
 }
 
-body{
-    margin: 0;
-    padding: 0;
-    background: var(--grey);
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--grey);
 }
 
-main{
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+main {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-nav{
-    margin: 0 25px 0 0;
-    height: 625px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+nav {
+  margin: 0 25px 0 0;
+  height: 625px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-#inputContainer{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: space-evenly;
+#inputContainer {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  flex: 0.5;
+  justify-content: space-around;
 }
 
-button{
-    width: 100px;
-    height: 50px;
-    color: var(--lightgreen);
-    appearance: none;
-    background: none;
-    border: 1px solid var(--lightgreen);
-    border-radius: 5px;
-    transition: 0.4s;
+button {
+  width: 100px;
+  height: 50px;
+  color: var(--lightgreen);
+  appearance: none;
+  background: none;
+  border: 1px solid var(--lightgreen);
+  border-radius: 5px;
+  transition: 0.4s;
 }
 
-button:active{
-    transition: 0.1s;
-    scale: 0.9;
+button:active {
+  transition: 0.1s;
+  scale: 0.9;
 }
 
-button:hover, .btnActive{
-    color: var(--grey);
-    background: var(--lightgreen);
-    border: none;
+button:hover,
+.btnActive {
+  color: var(--grey);
+  background: var(--lightgreen);
+  border: none;
 }
 
-.btnActive:hover{
-    color: var(--lightgreen);
-    appearance: none;
-    background: none;
-    border: 1px solid var(--lightgreen);
+.btnActive:hover {
+  color: var(--lightgreen);
+  appearance: none;
+  background: none;
+  border: 1px solid var(--lightgreen);
 }
 
-#ballsContainer{
-    border: 1px solid var(--lightgreen);
+.range {
+  appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+.range:focus {
+  outline: none;
+}
+
+.range::-webkit-slider-thumb {
+  appearance: none;
+  height: 15px;
+  width: 15px;
+  transform: rotate(45deg);
+  margin-top: -7px;
+  background: var(--grey);
+  border: 1px solid var(--lightgreen);
+  cursor: pointer;
+}
+
+.range::-webkit-slider-thumb:active {
+  background: var(--lightgreen);
+}
+
+.range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.5px;
+  cursor: pointer;
+  background: var(--lightgreen);
+  border-radius: 3px;
+}
+
+#ballsContainer {
+  border: 1px solid var(--lightgreen);
 }

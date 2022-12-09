@@ -17,4 +17,10 @@ export const generateBalls = (number) => {
     return array;
 }
 
+export const inputValueChange = (input, output) => {
+    input.addEventListener("input", () => {
+        output.value = input.value;
+      });
+};
+
 export default rnd;
