@@ -1,4 +1,5 @@
 import { generateBalls, inputValueChange } from "./functions.js";
+import { Cursor } from "./cursor.js";
 
 const canvas = document.querySelector('#ballsContainer');
 const ctx = canvas.getContext('2d');
@@ -6,26 +7,19 @@ const ctx = canvas.getContext('2d');
 const canvasWidhth = canvas.width;
 const canvasHeight = canvas.height;
 
-let ballArray = generateBalls(30)
+//INPUT RANGE
+const inputQuantity = document.querySelector('#inputQuantity');
+const outputQuantity = document.querySelector('#ballQuantityValue');
+let ballsQuantity = outputQuantity.value;
+inputValueChange(inputQuantity, outputQuantity);
 
-let stopDraw;
-const draw = () => {
-    ctx.clearRect(0, 0, canvasWidhth, canvasHeight);
+const inputConnectDist = document.querySelector('#inputConnectDist');
+const outputConnectDist = document.querySelector('#ballConnectDistValue');
+let connectDist = outputConnectDist.value;
+inputValueChange(inputConnectDist, outputConnectDist);
 
-    for (let i = 0; i < ballArray.length; i++) {
-        for (let j = 1; j < ballArray.length; j++) {
-            ballArray[i].drawBall();
-            ballArray[i].moveBall();
-            ballArray[i].checkEdges();
-            if (ballArray[i] !== ballArray[j])
-                ballArray[j].connectBall(ballArray[i]);
-        }
-    }
 
-    stopDraw = requestAnimationFrame(draw);
-}
-draw();
-
+//BUTTONS
 const resetBtn = document.querySelector('#resetBtn');
 const stopSwitchBtn = document.querySelector('#stopSwitchBtn');
 let stopSwitch = false;
@@ -45,13 +39,38 @@ stopSwitchBtn.addEventListener('click', () => {
 
 resetBtn.addEventListener('click', () => {
     ballArray = [];
-    ballArray = generateBalls(30);
+    ballsQuantity = outputQuantity.value;
+    connectDist = outputConnectDist.value;
+    ballArray = generateBalls(ballsQuantity);
 });
 
-const inputQuantity = document.querySelector('#inputQuantity');
-const quantityValue = document.querySelector('#ballQuantityValue');
-inputValueChange(inputQuantity, quantityValue);
 
-const inputConnectDist = document.querySelector('#inputConnectDist');
-const connectDistValue = document.querySelector('#ballConnectDistValue');
-inputValueChange(inputConnectDist, connectDistValue);
+//CURSOR
+const cursor = new Cursor();
+canvas.addEventListener('mousemove', (event) => {
+    if (event.offsetX >= 0 && event.offsetX <= canvasWidhth)
+        cursor.xPosition = event.offsetX;
+    if(event.offsetY >= 0 && event.offsetY <= canvasHeight)
+        cursor.yPosition = event.offsetY;
+});
+
+
+//else
+let ballArray = generateBalls(ballsQuantity)
+let stopDraw;
+const draw = () => {
+    ctx.clearRect(0, 0, canvasWidhth, canvasHeight);
+    cursor.drawCursorRadius();
+    for (let i = 0; i < ballArray.length; i++) {
+        ballArray[i].checkEdges();
+        ballArray[i].moveBall();
+        ballArray[i].drawBall();
+        for (let j = 1; j < ballArray.length; j++) {
+            if (ballArray[i] !== ballArray[j])
+                ballArray[j].connectBall(ballArray[i], connectDist);
+        }
+    }
+
+    stopDraw = requestAnimationFrame(draw);
+}
+draw();

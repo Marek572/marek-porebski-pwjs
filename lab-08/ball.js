@@ -21,8 +21,8 @@ export default class Ball {
         this.xPosition = rnd(canvasWidhth - 10, 10);
         this.yPosition = rnd(canvasHeight - 10, 10);
         this.radius = 10;
-        this.xSpeed = rnd(1, -1) / 8;
-        this.ySpeed = rnd(1, -1) / 8;
+        this.xSpeed = rnd(1, -1);
+        this.ySpeed = rnd(1, -1);
     }
 
     moveBall = () => {
@@ -40,13 +40,11 @@ export default class Ball {
     drawBall = () => {
         ctx.beginPath();
         ctx.strokeStyle = 'rgb(118, 200, 66)';
-        const startAngle = 0;
-        const endAngle = 2 * Math.PI;
-        ctx.arc(this.xPosition, this.yPosition, this.radius, startAngle, endAngle);
+        ctx.arc(this.xPosition, this.yPosition, this.radius, 0, 2 * Math.PI);
         ctx.stroke();
     }
 
-    connectBall = (otherBall) => {
+    connectBall = (otherBall, connectDist) => {
         const x1 = this.xPosition
         const y1 = this.yPosition
         const x2 = otherBall.xPosition
@@ -55,8 +53,8 @@ export default class Ball {
         const b = y2 - y1;
         const c = Math.sqrt(a ** 2 + b ** 2);
 
-        if (c <= canvasWidhth * 0.2) {
-            const lineSize = map(c, 0, canvasWidhth * 0.2, 1, false) //FIXME: here too
+        if (c <= connectDist) {
+            const lineSize = map(c, 0, connectDist, 1, 0, false) //FIXME: here too
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.strokeStyle = `rgba(101, 130, 76, ${lineSize})`;

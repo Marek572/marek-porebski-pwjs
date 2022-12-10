@@ -7,10 +7,9 @@ export const rnd = (max, min) => {
         return Math.random() * max;
 }
 
-//TODO: from inputs generateBalls(number, size, speed)
-export const generateBalls = (number) => {
+export const generateBalls = (quantity) => {
     const array = [];
-    for (let i = 0; i < number; i++) {
+    for (let i = 0; i < quantity; i++) {
         const newBall = new Ball();
         array.push(newBall);
     }
@@ -20,7 +19,7 @@ export const generateBalls = (number) => {
 export const inputValueChange = (input, output) => {
     input.addEventListener("input", () => {
         output.value = input.value;
-      });
+    });
 };
 
 export default rnd;
