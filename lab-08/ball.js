@@ -5,7 +5,6 @@ const ctx = canvas.getContext('2d');
 const canvasWidhth = canvas.width;
 const canvasHeight = canvas.height;
 
-//FIXME: why is that?
 const map = (value, start1, stop1, start2, stop2, withinBounds = false) => {
     const newVal = (value - start1) / (stop1 - start1) * (stop2 - start2) + start2;
     if(!withinBounds)
@@ -18,11 +17,16 @@ const map = (value, start1, stop1, start2, stop2, withinBounds = false) => {
 
 export default class Ball {
     constructor() {
-        this.xPosition = rnd(canvasWidhth - 10, 10);
-        this.yPosition = rnd(canvasHeight - 10, 10);
-        this.radius = 10;
-        this.xSpeed = rnd(1, -1);
-        this.ySpeed = rnd(1, -1);
+        this.radius = rnd(1,25);
+        this.xPosition = rnd(canvasWidhth - this.radius, this.radius);
+        this.yPosition = rnd(canvasHeight - this.radius, this.radius);
+        this.velocity = 6/this.radius;
+        this.xSpeed = this.velocity*Math.round(rnd(1,-1)) === 0 ? this.velocity*(-1) : this.velocity;
+        this.ySpeed = this.velocity*Math.round(rnd(1,-1)) === 0 ? this.velocity*(-1) : this.velocity;
+    }
+
+    updateVelocity = () => {
+        this.velocity = 6/this.radius;
     }
 
     moveBall = () => {
@@ -31,10 +35,27 @@ export default class Ball {
     }
 
     checkEdges = () => {
-        if (this.xPosition > canvasWidhth - 10 || this.xPosition - 10 < 0)
+        let boundsXBegining = this.radius
+        let boundsXEnd = canvasWidhth - this.radius
+        let boundsYBegining = this.radius
+        let boundsYEnd = canvasHeight - this.radius
+
+        if(this.xPosition < boundsXBegining){
+            this.xPosition = boundsXBegining
             this.xSpeed = this.xSpeed * (-1);
-        if (this.yPosition > canvasHeight - 10 || this.yPosition - 10 < 0)
+        }
+        if(this.xPosition > boundsXEnd){
+            this.xPosition = boundsXEnd
+            this.xSpeed = this.xSpeed * (-1);
+        }
+        if(this.yPosition < boundsYBegining){
+            this.yPosition = boundsYBegining
             this.ySpeed = this.ySpeed * (-1);
+        }
+        if(this.yPosition > boundsYEnd){
+            this.yPosition = boundsYEnd
+            this.ySpeed = this.ySpeed * (-1);
+        }
     }
 
     drawBall = () => {
@@ -44,7 +65,7 @@ export default class Ball {
         ctx.stroke();
     }
 
-    connectBall = (otherBall, connectDist) => {
+    connectBall = (otherBall, connectDist, connectEatSwitch) => {
         const x1 = this.xPosition
         const y1 = this.yPosition
         const x2 = otherBall.xPosition
@@ -54,12 +75,52 @@ export default class Ball {
         const c = Math.sqrt(a ** 2 + b ** 2);
 
         if (c <= connectDist) {
-            const lineSize = map(c, 0, connectDist, 1, 0, false) //FIXME: here too
+            const lineSize = map(c, 0, connectDist, 1, 0, false)
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.strokeStyle = `rgba(101, 130, 76, ${lineSize})`;
             ctx.lineTo(x2, y2);
             ctx.stroke();
+
+            if(connectEatSwitch === true) {
+                if(this.radius > otherBall.radius){
+                    if(this.radius < canvasHeight/2){
+                        otherBall.radius -= 0.1;
+                        this.radius += 0.1;
+                        otherBall.updateVelocity();
+                    }
+                }else{
+                    if(otherBall.radius < canvasHeight/2){
+                        this.radius -= 0.1;
+                        otherBall.radius += 0.1;
+                        this.updateVelocity();
+                    }
+                }
+            }
         }
     }
+
+    checkRadius = (ballArray) => {
+        if(this.radius < 1){
+            let ballIndex = ballArray.indexOf(this)
+            ballArray.splice(ballIndex, 1)
+        }
+    }
+
+    checkRepel = (cursorXPos, cursorYPos, cursorRadius, repelSwitch) => {
+        let a = cursorXPos - this.xPosition;
+        let b = cursorYPos - this.yPosition;
+        let c = cursorRadius + this.radius;
+        let dist = Math.sqrt(a**2 + b**2);
+        let statement = a**2 + b**2 <= c **2;
+
+        if(statement && repelSwitch === true){
+            let velocityX = a/dist;
+            let velocityY = b/dist;
+
+            this.xPosition -= velocityX*5;
+            this.yPosition -= velocityY*5;
+        }
+    }
+
 }

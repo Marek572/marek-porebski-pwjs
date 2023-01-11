@@ -25,6 +25,7 @@ main {
 
 nav {
   margin: 0 25px 0 0;
+  max-width: 225px;
   height: 625px;
   display: flex;
   flex-direction: column;
@@ -40,9 +41,16 @@ nav {
   justify-content: space-around;
 }
 
+#buttons{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 button {
   width: 100px;
   height: 50px;
+  margin: 0 0 25px 0;
   color: var(--lightgreen);
   appearance: none;
   background: none;

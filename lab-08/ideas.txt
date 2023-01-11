@@ -1,5 +1,0 @@
-20% szerokosci ekranu -> linia
-
-jesli kulka jest w jakims promieniu od myszy zmieniamy wartosc wektora (z + na -)
-
-przy tworzeniu nowego elementu canvas czyscic caly canvas
