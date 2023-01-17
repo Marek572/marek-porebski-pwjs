@@ -107,7 +107,7 @@ main {
   scale: 1.1;
 }
 
-.infoContainer {
+.generalInfo {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -115,7 +115,7 @@ main {
   align-items: center;
 }
 
-.infoContainer > p {
+.generalInfo > p {
   margin: 0 auto 20px auto;
   text-align: center;
 }
@@ -129,13 +129,61 @@ main {
   font-size: 1.5rem;
 }
 
-.weatherIcon {
-  font-size: 3rem;
-}
-
 .weatherHumidity {
   color: var(--white);
 }
+
+.detailedInfo{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.detailedInfo .cityName {
+  margin: 0 auto 20px auto;
+  text-align: center;
+}
+
+.detailedWeatherContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.smol{
+  width: 100px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.smol > p{
+  margin: 0 auto 10px auto;
+  text-align: center;
+}
+
+.smol > .time {
+  margin: 0;
+}
+
+.detailedInfo .weatherTemp {
+  font-size: 1rem;
+}
+
+.detailedInfo .weatherHumidity {
+  font-size: 0.8rem;
+}
+
+.detailedInfo .weatherIcon{
+  width: 50px;
+  height: 50px;
+}
+
 
 #addTileBtn {
   display: flex;
