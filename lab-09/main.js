@@ -1,10 +1,11 @@
-import {downloadCities, citiesList, downloadWeather} from './fetch.js';
-import {TilesCounter} from './tilesCounter.js';
-import {generateLocalStorageTiles} from './localStorage.js';
+import { downloadCities, citiesList, downloadWeather } from './fetch.js';
+import { generateLocalStorageTiles, updateWeatherInterval } from './localStorage.js';
+import { cityNameRemoveBrackets } from './functions.js';
 
-let weatherTilesCounter = new TilesCounter();
 downloadCities();
-generateLocalStorageTiles(weatherTilesCounter);
+generateLocalStorageTiles();
+updateWeatherInterval();
+
 
 const addTileBtn = document.querySelector('#addTileBtn');
 const searchBar = document.querySelector('#searchBarContainer');
@@ -36,8 +37,8 @@ searchBarInput.addEventListener('keyup', () => {
 
 const searchBarBtn = document.querySelector('#searchBarBtn');
 searchBarBtn.addEventListener('click', () => {
-    console.log(searchBarInput.value);
-    downloadWeather(searchBarInput.value, weatherTilesCounter);
+    const city = cityNameRemoveBrackets(searchBarInput.value);
+    downloadWeather(city);
     searchBarInput.value = '';
     searchBarList.innerHTML = '';
     searchBar.style.display = 'none';

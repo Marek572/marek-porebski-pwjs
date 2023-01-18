@@ -17,6 +17,8 @@ export class TilesCounter {
     counterCheckLimit = () => {
         if (this.counter === 5){
             addTileBtn.style.display = 'none';
+        }else{
+            addTileBtn.style.display = 'flex';
         }
     }
 }

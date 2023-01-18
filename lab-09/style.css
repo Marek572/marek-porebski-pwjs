@@ -120,8 +120,8 @@ main {
   text-align: center;
 }
 
-.cityName {
-  min-height: 70px;
+.generalInfo .cityName {
+  margin: 0 5px 20px 5px;
 }
 
 .cityName,
@@ -142,8 +142,27 @@ main {
 }
 
 .detailedInfo .cityName {
-  margin: 0 auto 20px auto;
+  margin: 0 5px 20px 5px;
   text-align: center;
+}
+
+.detailedWeatherBtnContainer{
+  width: 100%;
+  margin: 0 auto 10px auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.detailedInfo .removeTileBtn, .detailedInfo .switchToChartBtn{
+  transition: 0.2s;
+}
+
+.removeTileBtn:hover, .switchToChartBtn:hover{
+  color: var(--white);
+}
+
+.removeTileBtn:active, .switchToChartBtn:active{
+  scale: 0.8;
 }
 
 .detailedWeatherContainer{
