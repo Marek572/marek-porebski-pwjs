@@ -1,7 +1,7 @@
 import { removeFromLocalStorage } from './localStorage.js';
 import { removeTileEvent, strRemoveSpaces } from './functions.js';
 import { TilesCounter } from './tilesCounter.js';
-import { createChart, updateChart } from './chart.js';
+import { createChart/*, updateChart */ } from './chart.js';
 
 const weatherTilesCounter = new TilesCounter;
 
@@ -130,8 +130,7 @@ export const addNewWeatherTile = (weatherInfo) => {
 
 export const updateWeatherTile = async (weatherInfo) => {
 
-    const tileToUpdate = document.querySelector(`#${weatherInfo.city.name}`);
-
+    const tileToUpdate = document.querySelector(`#${strRemoveSpaces(weatherInfo.city.name)}`);
 
     const generalInfo = tileToUpdate.childNodes[0];
     const weatherIcon = generalInfo.childNodes[1];
@@ -146,7 +145,9 @@ export const updateWeatherTile = async (weatherInfo) => {
 
     weatherHumidity.innerHTML = `<i class="fa-solid fa-droplet-degree"></i> ${weatherInfo.list[0].main.humidity}%`
 
-    //TODO: updateChart
+    // const detailedWeatherChart = document.querySelector('canvas');
+    // updateChart(detailedWeatherChart, weatherInfo)
+    // detailedWeatherChart.remove();
 
     const detailedInfo = tileToUpdate.childNodes[1].childNodes[2];
 
@@ -203,7 +204,8 @@ const removeTileBtnEvent = (btn, city) => {
 const switchToChartBtnEvent = (btn, city) => {
     let chartVisibility = false;
     btn.addEventListener('click', () => {
-        chartVisibility = !chartVisibility
+        chartVisibility = !chartVisibility;
+        city = strRemoveSpaces(city);
         const detailedInfo = document.querySelector(`#${city}`);
         const detailedWeatherContainer = detailedInfo.querySelector('.detailedWeatherContainer');
         const detailedWeatherChart = detailedInfo.querySelector('.detailedWeatherChart');

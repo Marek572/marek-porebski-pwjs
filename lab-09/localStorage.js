@@ -46,6 +46,7 @@ export const localStorageContains = (city) => {
 export const updateWeatherInterval = () => {
     if (parsedCities.length > 0) {
         setInterval(() => {
+            console.log('updateWeatherInterval')
             parsedCities.forEach((city) => {
                 updateWeather(city);
             });

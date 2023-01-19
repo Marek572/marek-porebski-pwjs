@@ -28,20 +28,25 @@ export const createChart = (canvas, weatherInfo) => {
     });
 }
 
-export const updateChart = (chart, weatherInfo) => {
+// export const updateChart = (canvas, weatherInfo) => {
 
-    let oldTime = chart['datasets'][0]['data']
-    console.log(oldTime)
+//     const chart = canvas.getContext('2d');
+//     // const updatedChart = Chart(chart);
 
-    const newTime = [];
-    const newTemperature = [];
-    const newHumidity = [];
-    for (let i = 0; i < 4; i++) {
-        newTime[i] = weatherInfo.list[i].dt_txt.slice(-8, -3);
-        newTemperature[i] = weatherInfo.list[i].main.temp;
-        newHumidity[i] = weatherInfo.list[i].main.humidity;
-    }
+//     const newTime = [];
+//     const newTemperature = [];
+//     const newHumidity = [];
+//     for (let i = 0; i < 4; i++) {
+//         newTime[i] = weatherInfo.list[i].dt_txt.slice(-8, -3);
+//         newTemperature[i] = weatherInfo.list[i].main.temp;
+//         newHumidity[i] = weatherInfo.list[i].main.humidity;
+//     }
 
-    
+//     console.log(chart)
 
-}
+//     chart['data']['labels'] = newTime
+//     chart['datasets'][0]['data'] = newTemperature
+//     chart['datasets'][1]['data'] = newHumidity
+
+
+// }
